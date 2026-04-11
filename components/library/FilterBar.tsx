@@ -16,16 +16,16 @@ interface FilterBarProps {
 
 export default function FilterBar({ active, onChange }: FilterBarProps) {
   return (
-    <div className="flex items-center gap-2 px-6 py-3 overflow-x-auto scrollbar-hide border-b border-white/6 bg-[#141414]">
+    <div className="flex items-center gap-2 px-4 md:px-6 py-3 overflow-x-auto scrollbar-hide border-b border-[var(--border)] bg-bg">
       {FILTERS.map((f) => (
         <button
           key={f.value}
           onClick={() => onChange(f.value)}
           className={`
-            shrink-0 px-4 py-1.5 rounded-full text-[13px] font-medium transition-all duration-150 cursor-pointer
+            shrink-0 px-4 py-2.5 min-h-[44px] rounded-full text-sm font-medium transition-all duration-150 cursor-pointer
             ${active === f.value
-              ? 'bg-neon text-black-brand shadow-[0_0_12px_rgba(206,255,50,0.3)]'
-              : 'bg-white/5 text-[#777] hover:bg-white/8 hover:text-[#BBB] border border-white/6'
+              ? 'bg-[var(--accent)] text-bg shadow-[0_0_12px_var(--accent-glow)]'
+              : 'bg-[var(--border)] text-text-muted hover:bg-[var(--accent)]/10 hover:text-text border border-[var(--border)]'
             }
           `}
         >

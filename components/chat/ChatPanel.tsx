@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import QuickActions from './QuickActions'
 import MessageList from './MessageList'
 import ChatInput from './ChatInput'
+import KiwiMascot from '@/components/ui/KiwiMascot'
 import type { ChatMessage } from '@/lib/types'
 
 const STORAGE_KEY = 'genai-chat-session'
@@ -106,26 +107,31 @@ export default function ChatPanel({ onHighlight }: ChatPanelProps) {
   const isEmpty = messages.length === 0
 
   return (
-    <div className="flex flex-col h-full bg-[#0F0F0F]/80 backdrop-blur-sm">
+    <div className="flex flex-col h-full bg-chat-bg shadow-[-4px_0_20px_rgba(0,0,0,0.08)] relative overflow-hidden">
+      {/* Kiwi Mascot - follows cursor, fades when chatting */}
+      <KiwiMascot isActive={!isEmpty} />
+
       {/* Panel Header */}
-      <div className="px-4 py-3 border-b border-white/8 shrink-0 flex items-center gap-2">
-        <span className="w-2 h-2 rounded-full bg-neon shadow-[0_0_6px_rgba(206,255,50,0.8)]" />
+      <div className="px-4 py-3 border-b border-[var(--accent)]/20 shrink-0 flex items-center gap-3 bg-[var(--accent)]/5 relative z-10">
+        <div className="w-9 h-9 rounded-xl bg-[var(--accent)]/15 flex items-center justify-center">
+          <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent-glow)]" />
+        </div>
         <div>
-          <p className="text-[#F6F6F6] text-sm font-semibold leading-tight">GenAI Assistent</p>
-          <p className="text-[#444] text-xs">Findet die richtigen Tools für dich</p>
+          <p className="text-text text-sm font-semibold leading-tight">GenAI Assistent</p>
+          <p className="text-text-muted text-xs">Findet die richtigen Tools für dich</p>
         </div>
       </div>
 
       {/* Messages or Welcome */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto relative z-10">
         {isEmpty ? (
           <div className="flex flex-col p-4 gap-4 h-full">
-            {/* Neon glow accent top */}
-            <div className="w-8 h-8 rounded-full bg-neon/20 blur-xl mx-auto mt-4 mb-0" />
-            <p className="text-[#555] text-xs text-center tracking-wide uppercase font-medium">
+            {/* Accent glow top */}
+            <div className="w-8 h-8 rounded-full bg-[var(--accent)]/20 blur-xl mx-auto mt-4 mb-0" />
+            <p className="text-text-muted text-xs text-center tracking-wide uppercase font-medium">
               KI-Tool Beratung
             </p>
-            <p className="text-[#888] text-sm leading-relaxed text-center px-2">
+            <p className="text-text-secondary text-sm leading-relaxed text-center px-2">
               Beschreib deinen Use Case — ich finde die passenden Tools aus der Bibliothek.
             </p>
             <QuickActions onPick={send} />

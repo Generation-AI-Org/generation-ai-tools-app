@@ -15,11 +15,11 @@ export default function ContentCard({ item, isHighlighted, isDimmed, animationDe
     <Link
       href={`/${item.slug}`}
       className={`
-        group block rounded-2xl border p-5 transition-all duration-300 cursor-pointer
-        hover:scale-[1.015] hover:shadow-[0_8px_32px_rgba(0,0,0,0.5)]
+        group block rounded-2xl border p-4 md:p-5 transition-all duration-300 cursor-pointer min-h-[120px]
+        hover:scale-[1.015] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)]
         ${isHighlighted
-          ? 'bg-[#1A1A1A] border-neon shadow-[0_0_32px_rgba(206,255,50,0.15)] scale-[1.02] animate-pulse-once'
-          : 'bg-[#181818] border-white/6 hover:border-white/18 hover:bg-[#1E1E1E]'
+          ? 'bg-bg-card border-[var(--accent)] shadow-[0_0_32px_var(--accent-glow)] scale-[1.02] animate-pulse-once'
+          : 'bg-bg-card border-[var(--border)] hover:border-[var(--accent)]/30 hover:bg-bg-card/80'
         }
         ${isDimmed ? 'opacity-35' : ''}
       `}
@@ -36,17 +36,17 @@ export default function ContentCard({ item, isHighlighted, isDimmed, animationDe
       </div>
 
       {/* Title */}
-      <h3 className="text-[#F0F0F0] font-bold text-[15px] leading-snug mb-1 group-hover:text-neon transition-colors duration-150">
+      <h3 className="text-text font-bold text-[15px] leading-snug mb-1 group-hover:text-[var(--accent)] transition-colors duration-150">
         {item.title}
       </h3>
 
       {/* Category */}
-      <p className="text-neon/45 text-[11px] uppercase tracking-widest font-semibold mb-3">
+      <p className="text-[var(--accent)]/50 text-[11px] uppercase tracking-widest font-semibold mb-3">
         {item.category}
       </p>
 
       {/* Summary */}
-      <p className="text-[#888] text-[13px] leading-relaxed line-clamp-2">
+      <p className="text-text-secondary text-[14px] md:text-[13px] leading-relaxed line-clamp-2">
         {item.summary}
       </p>
     </Link>

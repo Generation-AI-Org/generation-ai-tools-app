@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
-import Image from 'next/image'
 import Link from 'next/link'
 import { getItemBySlug, getPublishedItems } from '@/lib/content'
 import Badge from '@/components/ui/Badge'
 import ToolLogo from '@/components/ui/ToolLogo'
+import DetailHeaderLogo from '@/components/ui/DetailHeaderLogo'
 import type { Metadata } from 'next'
 
 interface Props {
@@ -35,25 +35,25 @@ export default async function ItemPage({ params }: Props) {
     : null
 
   return (
-    <div className="bg-[#141414]">
+    <div className="bg-bg min-h-screen">
       {/* Header */}
-      <div className="bg-blue-brand px-6 py-3 flex items-center justify-between border-b border-white/8">
-        <Link href="/">
-          <Image src="/logo-blue-neon.png" alt="Generation AI" width={120} height={36} className="h-9 w-auto object-contain" priority />
-        </Link>
-        <span className="text-neon/60 text-xs hidden md:block tracking-wide">tools.generation-ai.org</span>
+      <div className="bg-[var(--bg-header)] px-6 py-3 flex items-center justify-between border-b border-[var(--border)]">
+        <a href="https://community.generation-ai.org" target="_blank" rel="noopener noreferrer">
+          <DetailHeaderLogo />
+        </a>
+        <span className="text-white/60 text-xs hidden md:block tracking-wide">tools.generation-ai.org</span>
       </div>
       {/* Back */}
       <div className="px-6 pt-6">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[#555] text-sm hover:text-[#F6F6F6] transition-colors"
+          className="inline-flex items-center gap-2 text-text-muted text-sm hover:text-text transition-colors"
         >
           ← Zurück zur Bibliothek
         </Link>
       </div>
 
-      <div className="max-w-2xl mx-auto px-6 py-8 pb-24">
+      <div className="max-w-2xl mx-auto px-4 md:px-6 py-6 md:py-8 pb-24">
         {/* Hero */}
         <div className="flex items-start gap-5 mb-8">
           <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
@@ -66,14 +66,14 @@ export default async function ItemPage({ params }: Props) {
                 <Badge variant="pricing" value={item.pricing_model} />
               )}
             </div>
-            <h1 className="text-2xl font-bold text-[#F2F2F2] tracking-tight leading-tight">{item.title}</h1>
-            <p className="text-[#777] text-[13px] mt-1.5 leading-relaxed">{item.summary}</p>
+            <h1 className="text-2xl font-bold text-text tracking-tight leading-tight">{item.title}</h1>
+            <p className="text-text-secondary text-sm md:text-[13px] mt-1.5 leading-relaxed">{item.summary}</p>
             {item.external_url && (
               <a
                 href={item.external_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-neon/80 text-xs mt-2 hover:text-neon transition-colors font-medium tracking-wide"
+                className="inline-flex items-center gap-1 text-[var(--accent)]/80 text-xs mt-2 hover:text-[var(--accent)] transition-colors font-medium tracking-wide"
               >
                 {item.external_url.replace('https://', '')} ↗
               </a>
@@ -87,7 +87,7 @@ export default async function ItemPage({ params }: Props) {
             {item.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-0.5 rounded-full text-xs bg-white/5 text-[#666] border border-white/8"
+                className="px-2 py-0.5 rounded-full text-xs bg-[var(--border)] text-text-muted border border-[var(--border)]"
               >
                 #{tag}
               </span>
@@ -97,9 +97,9 @@ export default async function ItemPage({ params }: Props) {
 
         {/* Quick Win Callout */}
         {item.quick_win && (
-          <div className="border-l-2 border-neon pl-4 py-2 mb-8 bg-neon/3 rounded-r-lg">
-            <p className="text-[10px] uppercase tracking-wider text-neon mb-1 font-medium">Quick Win</p>
-            <p className="text-[#F6F6F6] text-sm leading-relaxed">{item.quick_win}</p>
+          <div className="border-l-2 border-[var(--accent)] pl-4 py-2 mb-8 bg-[var(--accent-soft)] rounded-r-lg">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--accent)] mb-1 font-medium">Quick Win</p>
+            <p className="text-text text-sm md:text-[14px] leading-relaxed">{item.quick_win}</p>
           </div>
         )}
 
@@ -109,7 +109,7 @@ export default async function ItemPage({ params }: Props) {
             {item.content.split('\n').map((line, i) => {
               if (line.startsWith('## ')) {
                 return (
-                  <h2 key={i} className="text-base font-bold text-[#F0F0F0] mt-8 mb-2 first:mt-0 tracking-tight">
+                  <h2 key={i} className="text-base font-bold text-text mt-8 mb-2 first:mt-0 tracking-tight">
                     {line.replace('## ', '')}
                   </h2>
                 )
@@ -117,14 +117,14 @@ export default async function ItemPage({ params }: Props) {
               if (line.startsWith('- ')) {
                 return (
                   <div key={i} className="flex gap-2 items-start py-0.5">
-                    <span className="text-neon mt-1.5 shrink-0 text-[8px]">▸</span>
-                    <p className="text-[#999] text-[13px] leading-relaxed">{line.replace('- ', '')}</p>
+                    <span className="text-[var(--accent)] mt-1.5 shrink-0 text-[8px]">▸</span>
+                    <p className="text-text-secondary text-[13px] leading-relaxed">{line.replace('- ', '')}</p>
                   </div>
                 )
               }
               if (line.trim() === '') return <div key={i} className="h-3" />
               return (
-                <p key={i} className="text-[#888] text-[13px] leading-relaxed">
+                <p key={i} className="text-text-muted text-[13px] leading-relaxed">
                   {line}
                 </p>
               )
@@ -134,12 +134,12 @@ export default async function ItemPage({ params }: Props) {
 
         {/* CTA */}
         {item.external_url && (
-          <div className="mt-10 pt-8 border-t border-white/8">
+          <div className="mt-10 pt-8 border-t border-[var(--border)]">
             <a
               href={item.external_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-neon text-black-brand font-semibold px-5 py-2.5 rounded-lg hover:bg-neon/90 transition-colors text-sm"
+              className="inline-flex items-center justify-center gap-2 bg-[var(--accent)] text-[var(--text-on-accent)] font-semibold px-6 py-3 rounded-xl hover:opacity-90 transition-colors text-base w-full sm:w-auto min-h-[48px]"
             >
               {item.title} öffnen ↗
             </a>

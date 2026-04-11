@@ -1,42 +1,64 @@
 @import "tailwindcss";
 
 /* ─── Generation AI Design System ─────────────────────────────────────────
-   Farbwelt A (Default): Blue / Green
-   Farbwelt B (Campaign): Pink / Red — nie mischen
-   Dark First: #141414 als primärer Background
+   Farbwelt A (Dark): Blue / Neon Green
+   Farbwelt B (Light): Pink / Red
 ────────────────────────────────────────────────────────────────────────── */
 
+/* Dark Mode (Default) — Blue/Neon Green */
 :root {
-  /* Backgrounds */
-  --bg:           #141414;   /* Cod Gray — Haupt-Background */
-  --bg-card:      #1C1C1C;   /* Cards, leicht aufgehellt */
-  --bg-blue:      #3A3AFF;   /* Blue Ribbon — Hero, Akzente */
+  --bg:             #141414;
+  --bg-card:        #1C1C1C;
+  --bg-elevated:    #222222;
+  --bg-header:      #3A3AFF;
+  --accent:         #CEFF32;
+  --accent-hover:   #D4FF4D;
+  --accent-glow:    rgba(206, 255, 50, 0.4);
+  --accent-soft:    rgba(206, 255, 50, 0.15);
+  --text:           #F6F6F6;
+  --text-muted:     #666666;
+  --text-secondary: #999999;
+  --text-on-accent: #141414;
+  --border:         rgba(255, 255, 255, 0.08);
+  --border-accent:  rgba(206, 255, 50, 0.6);
+  --shadow:         rgba(0, 0, 0, 0.5);
+  --chat-bg:        #181818;
+}
 
-  /* Akzente */
-  --accent:       #CEFF32;   /* Green Yellow — CTAs, Highlights, Borders */
-
-  /* Text */
-  --text:         #F6F6F6;   /* Wild Sand — Primärer Text */
-  --text-muted:   #666666;   /* Sekundärer Text, Labels */
-
-  /* Borders */
-  --border:       rgba(255, 255, 255, 0.08);
-  --border-accent: rgba(206, 255, 50, 0.6);  /* Neon-Border für Highlights */
-
-  /* Farbwelt B — nur Kampagnen, nicht in der App */
-  --bg-pink:      #FC78FE;   /* Heliotrope */
-  --accent-red:   #F5133B;   /* Red Ribbon */
+/* Light Mode — Pink/Red CI mit besseren Kontrasten */
+.light {
+  --bg:             #FAF7F8;
+  --bg-card:        #FFFFFF;
+  --bg-elevated:    #F5EEF0;
+  --bg-header:      #F870F4;
+  --accent:         #D91040;
+  --accent-hover:   #B80D35;
+  --accent-glow:    rgba(217, 16, 64, 0.3);
+  --accent-soft:    rgba(217, 16, 64, 0.08);
+  --text:           #1A1A1A;
+  --text-muted:     #555555;
+  --text-secondary: #666666;
+  --text-on-accent: #FFFFFF;
+  --border:         rgba(0, 0, 0, 0.1);
+  --border-accent:  rgba(217, 16, 64, 0.4);
+  --shadow:         rgba(0, 0, 0, 0.1);
+  --chat-bg:        #E8E4E5;
 }
 
 @theme inline {
-  --color-bg:           var(--bg);
-  --color-bg-card:      var(--bg-card);
-  --color-bg-blue:      var(--bg-blue);
-  --color-accent:       var(--accent);
-  --color-text:         var(--text);
-  --color-text-muted:   var(--text-muted);
+  --color-bg:             var(--bg);
+  --color-bg-card:        var(--bg-card);
+  --color-bg-elevated:    var(--bg-elevated);
+  --color-bg-header:      var(--bg-header);
+  --color-chat-bg:        var(--chat-bg);
+  --color-accent:         var(--accent);
+  --color-accent-hover:   var(--accent-hover);
+  --color-text:           var(--text);
+  --color-text-muted:     var(--text-muted);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-on-accent: var(--text-on-accent);
 
-  /* Brand-Farben als Tailwind-Utilities */
+  /* Static Brand-Farben (unabhängig vom Theme) */
   --color-blue-brand:   #3A3AFF;
   --color-neon:         #CEFF32;
   --color-pink-brand:   #FC78FE;
@@ -58,18 +80,18 @@ body {
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
 
-/* Highlight Animation für empfohlene Cards */
+/* Highlight Animation für empfohlene Cards — nutzt CSS-Variablen für Theme-Support */
 @keyframes pulse-once {
   0% {
-    box-shadow: 0 0 0 rgba(206, 255, 50, 0);
+    box-shadow: 0 0 0 transparent;
     transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 40px rgba(206, 255, 50, 0.4);
+    box-shadow: 0 0 40px var(--accent-glow);
     transform: scale(1.03);
   }
   100% {
-    box-shadow: 0 0 32px rgba(206, 255, 50, 0.15);
+    box-shadow: 0 0 32px var(--accent-soft);
     transform: scale(1.02);
   }
 }
@@ -77,3 +99,8 @@ body {
 .animate-pulse-once {
   animation: pulse-once 0.5s ease-out forwards;
 }
+
+/* Light Mode Scrollbar */
+.light ::-webkit-scrollbar-track { background: var(--bg); }
+.light ::-webkit-scrollbar-thumb { background: rgba(245, 19, 59, 0.2); }
+.light ::-webkit-scrollbar-thumb:hover { background: rgba(245, 19, 59, 0.35); }

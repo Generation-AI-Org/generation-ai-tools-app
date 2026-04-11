@@ -13,10 +13,10 @@ function renderInline(text: string): React.ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g)
   return parts.map((part, i) => {
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="text-[#F0F0F0] font-semibold">{part.slice(2, -2)}</strong>
+      return <strong key={i} className="text-text font-semibold">{part.slice(2, -2)}</strong>
     }
     if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={i} className="text-[#BBBBBB]">{part.slice(1, -1)}</em>
+      return <em key={i} className="text-text-secondary">{part.slice(1, -1)}</em>
     }
     return part
   })
@@ -30,14 +30,14 @@ function MarkdownContent({ content }: { content: string }) {
   lines.forEach((line, i) => {
     if (line.startsWith('## ')) {
       nodes.push(
-        <p key={i} className="font-semibold text-[#F0F0F0] mt-2 mb-0.5">
+        <p key={i} className="font-semibold text-text mt-2 mb-0.5">
           {renderInline(line.slice(3))}
         </p>
       )
     } else if (line.startsWith('- ') || line.startsWith('• ')) {
       nodes.push(
         <div key={i} className="flex gap-2 items-start">
-          <span className="text-neon mt-[3px] shrink-0 text-[8px]">▸</span>
+          <span className="text-[var(--accent)] mt-[3px] shrink-0 text-[8px]">▸</span>
           <span>{renderInline(line.slice(2))}</span>
         </div>
       )
@@ -66,10 +66,10 @@ export default function MessageList({ messages, isLoading }: MessageListProps) {
           className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
         >
           <div
-            className={`max-w-[88%] rounded-2xl px-4 py-3 text-[13px] leading-relaxed ${
+            className={`max-w-[88%] rounded-2xl px-4 py-3 text-[15px] md:text-sm leading-relaxed ${
               msg.role === 'user'
-                ? 'bg-white/8 text-[#E0E0E0] rounded-br-md'
-                : 'bg-[#1A1A1A] border border-neon/20 text-[#CCCCCC] rounded-bl-md'
+                ? 'bg-[var(--bg-elevated)] text-text rounded-br-md'
+                : 'bg-bg-card border border-[var(--accent)]/20 text-text-secondary rounded-bl-md'
             }`}
           >
             {msg.role === 'assistant' ? <MarkdownContent content={msg.content} /> : msg.content}
@@ -79,10 +79,10 @@ export default function MessageList({ messages, isLoading }: MessageListProps) {
 
       {isLoading && (
         <div className="flex justify-start">
-          <div className="bg-[#1A1A1A] border border-neon/20 rounded-2xl rounded-bl-md px-4 py-3 flex gap-1.5 items-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-neon/70 animate-bounce [animation-delay:0ms]" />
-            <span className="w-1.5 h-1.5 rounded-full bg-neon/70 animate-bounce [animation-delay:120ms]" />
-            <span className="w-1.5 h-1.5 rounded-full bg-neon/70 animate-bounce [animation-delay:240ms]" />
+          <div className="bg-bg-card border border-[var(--accent)]/20 rounded-2xl rounded-bl-md px-4 py-3 flex gap-1.5 items-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]/70 animate-bounce [animation-delay:0ms]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]/70 animate-bounce [animation-delay:120ms]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]/70 animate-bounce [animation-delay:240ms]" />
           </div>
         </div>
       )}

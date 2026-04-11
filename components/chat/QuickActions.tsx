@@ -34,7 +34,7 @@ export default function QuickActions({ onPick }: QuickActionsProps) {
         <button
           key={action.id}
           onClick={() => onPick(action.prompt)}
-          className="text-left px-3 py-2.5 rounded-lg border border-white/10 bg-white/4 text-[#777] text-sm hover:border-neon/50 hover:text-neon hover:bg-neon/5 transition-all duration-150 group"
+          className="text-left px-4 py-3 min-h-[48px] rounded-xl border border-[var(--border)] bg-bg-card text-text-muted text-sm hover:border-[var(--accent)]/50 hover:text-[var(--accent)] hover:bg-[var(--accent-soft)] transition-all duration-150"
         >
           {action.label}
         </button>

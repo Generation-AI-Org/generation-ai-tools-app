@@ -36,7 +36,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
   }
 
   return (
-    <div className="flex items-end gap-2 p-3 border-t border-white/8">
+    <div className="flex items-end gap-2 p-3 md:p-4 border-t border-[var(--border)] bg-chat-bg relative z-10">
       <textarea
         ref={textareaRef}
         value={value}
@@ -45,16 +45,23 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
         disabled={disabled}
         placeholder="Schreib eine Frage…"
         rows={1}
-        className="flex-1 resize-none bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-sm text-[#F6F6F6] placeholder-[#444] focus:outline-none focus:border-neon/40 transition-colors disabled:opacity-40"
-        style={{ maxHeight: '120px' }}
+        className="flex-1 resize-none bg-[var(--bg-card)] border border-[var(--border)] rounded-xl px-3 md:px-4 py-3 text-base md:text-sm text-text placeholder-text-muted focus:outline-none focus:border-[var(--accent)]/40 focus:ring-2 focus:ring-[var(--accent)]/10 transition-all disabled:opacity-40"
+        style={{ maxHeight: '120px', minHeight: '48px', fontSize: '16px' }}
       />
       <button
         onClick={handleSend}
         disabled={disabled || !value.trim()}
-        className="shrink-0 w-8 h-8 rounded-lg bg-neon flex items-center justify-center transition-all hover:bg-neon/80 disabled:opacity-30 disabled:cursor-not-allowed"
+        className="shrink-0 w-11 h-11 md:w-12 md:h-12 rounded-xl bg-[var(--accent)] flex items-center justify-center transition-all hover:scale-105 hover:shadow-[0_0_20px_var(--accent-glow)] active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
       >
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-          <path d="M13 1L1 7l4 2 1 4 7-12z" fill="#141414" stroke="#141414" strokeWidth="0.5" strokeLinejoin="round"/>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-bg"
+          />
         </svg>
       </button>
     </div>
