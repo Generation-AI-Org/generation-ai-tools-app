@@ -8,48 +8,45 @@ interface BadgeProps {
   className?: string
 }
 
-const pricingLabels: Record<string, string> = {
-  free: 'Kostenlos',
-  freemium: 'Freemium',
-  paid: 'Kostenpflichtig',
-  open_source: 'Open Source',
+const pricingConfig: Record<string, { label: string; style: string }> = {
+  free: {
+    label: 'Kostenlos',
+    style: 'bg-neon/10 text-neon border border-neon/25',
+  },
+  freemium: {
+    label: 'Freemium',
+    style: 'bg-[#4F46E5]/15 text-[#A5B4FC] border border-[#6366F1]/25',
+  },
+  paid: {
+    label: 'Kostenpflichtig',
+    style: 'bg-white/5 text-[#AAA] border border-white/10',
+  },
+  open_source: {
+    label: 'Open Source',
+    style: 'bg-neon/8 text-neon/75 border border-neon/20',
+  },
 }
 
-const pricingStyles: Record<string, string> = {
-  free: 'bg-neon/15 text-neon border border-neon/30',
-  freemium: 'bg-blue-brand/15 text-blue-brand border border-blue-brand/30',
-  paid: 'bg-white/8 text-[#F6F6F6] border border-white/10',
-  open_source: 'border border-neon/40 text-neon/80',
-}
-
-const typeLabels: Record<string, string> = {
-  tool: 'Tool',
-  guide: 'Guide',
-  faq: 'FAQ',
-}
-
-const typeStyles: Record<string, string> = {
-  tool: 'bg-white/8 text-[#F6F6F6] border border-white/10',
-  guide: 'bg-blue-brand/10 text-blue-brand border border-blue-brand/20',
-  faq: 'bg-white/5 text-[#666] border border-white/8',
+const typeConfig: Record<string, { label: string; style: string }> = {
+  tool:  { label: 'Tool',  style: 'bg-white/5 text-[#AAA] border border-white/10' },
+  guide: { label: 'Guide', style: 'bg-[#4F46E5]/15 text-[#A5B4FC] border border-[#6366F1]/25' },
+  faq:   { label: 'FAQ',   style: 'bg-white/5 text-[#888] border border-white/8' },
 }
 
 export default function Badge({ variant, value, className = '' }: BadgeProps) {
   let label = value
-  let style = 'bg-white/8 text-[#F6F6F6] border border-white/10'
+  let style = 'bg-white/5 text-[#888] border border-white/8'
 
   if (variant === 'pricing') {
-    label = pricingLabels[value] ?? value
-    style = pricingStyles[value] ?? style
+    const config = pricingConfig[value]
+    if (config) { label = config.label; style = config.style }
   } else if (variant === 'type') {
-    label = typeLabels[value] ?? value
-    style = typeStyles[value] ?? style
+    const config = typeConfig[value]
+    if (config) { label = config.label; style = config.style }
   }
 
   return (
-    <span
-      className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${style} ${className}`}
-    >
+    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium tracking-wide ${style} ${className}`}>
       {label}
     </span>
   )

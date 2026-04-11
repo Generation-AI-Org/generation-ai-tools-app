@@ -1,7 +1,7 @@
 import Anthropic from '@anthropic-ai/sdk'
 import type { ContentItemMeta, ChatMessage, RecommendationResponse } from '@/lib/types'
 
-const MODEL = 'claude-sonnet-4-5'
+const MODEL = 'claude-haiku-4-5-20251001'
 
 function buildSystemPrompt(items: ContentItemMeta[]): string {
   const itemsJson = JSON.stringify(

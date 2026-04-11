@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getItemBySlug, getPublishedItems } from '@/lib/content'
 import Badge from '@/components/ui/Badge'
+import ToolLogo from '@/components/ui/ToolLogo'
 import type { Metadata } from 'next'
 
 interface Props {
@@ -34,51 +35,45 @@ export default async function ItemPage({ params }: Props) {
     : null
 
   return (
-    <div className="min-h-screen bg-[#141414]">
+    <div className="bg-[#141414]">
+      {/* Header */}
+      <div className="bg-blue-brand px-6 py-3 flex items-center justify-between border-b border-white/8">
+        <Link href="/">
+          <Image src="/logo-blue-neon.png" alt="Generation AI" width={120} height={36} className="h-9 w-auto object-contain" priority />
+        </Link>
+        <span className="text-neon/60 text-xs hidden md:block tracking-wide">tools.generation-ai.org</span>
+      </div>
       {/* Back */}
       <div className="px-6 pt-6">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-[#666] text-sm hover:text-[#F6F6F6] transition-colors"
+          className="inline-flex items-center gap-2 text-[#555] text-sm hover:text-[#F6F6F6] transition-colors"
         >
           ← Zurück zur Bibliothek
         </Link>
       </div>
 
-      <div className="max-w-2xl mx-auto px-6 py-8">
+      <div className="max-w-2xl mx-auto px-6 py-8 pb-24">
         {/* Hero */}
-        <div className="flex items-start gap-4 mb-6">
-          <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-white/5 flex items-center justify-center border border-white/8">
-            {logoUrl ? (
-              <Image
-                src={logoUrl}
-                alt={`${item.title} Logo`}
-                width={56}
-                height={56}
-                className="object-contain w-full h-full"
-                unoptimized
-              />
-            ) : (
-              <span className="text-neon font-bold text-2xl">
-                {item.title.charAt(0)}
-              </span>
-            )}
+        <div className="flex items-start gap-5 mb-8">
+          <div className="w-16 h-16 rounded-2xl overflow-hidden shrink-0">
+            <ToolLogo slug={item.slug} domain={item.logo_domain} name={item.title} size={64} />
           </div>
-          <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-2 mb-1">
+          <div className="flex-1 pt-0.5">
+            <div className="flex flex-wrap items-center gap-2 mb-2">
               <Badge variant="type" value={item.type} />
               {item.pricing_model && (
                 <Badge variant="pricing" value={item.pricing_model} />
               )}
             </div>
-            <h1 className="text-2xl font-bold text-[#F6F6F6]">{item.title}</h1>
-            <p className="text-[#888] text-sm mt-1">{item.summary}</p>
+            <h1 className="text-2xl font-bold text-[#F2F2F2] tracking-tight leading-tight">{item.title}</h1>
+            <p className="text-[#777] text-[13px] mt-1.5 leading-relaxed">{item.summary}</p>
             {item.external_url && (
               <a
                 href={item.external_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-neon text-sm mt-2 hover:underline"
+                className="inline-flex items-center gap-1 text-neon/80 text-xs mt-2 hover:text-neon transition-colors font-medium tracking-wide"
               >
                 {item.external_url.replace('https://', '')} ↗
               </a>
@@ -110,25 +105,26 @@ export default async function ItemPage({ params }: Props) {
 
         {/* Content */}
         {item.content && (
-          <div className="prose-gen">
+          <div className="space-y-1">
             {item.content.split('\n').map((line, i) => {
               if (line.startsWith('## ')) {
                 return (
-                  <h2 key={i} className="text-lg font-semibold text-[#F6F6F6] mt-8 mb-3 first:mt-0">
+                  <h2 key={i} className="text-base font-bold text-[#F0F0F0] mt-8 mb-2 first:mt-0 tracking-tight">
                     {line.replace('## ', '')}
                   </h2>
                 )
               }
               if (line.startsWith('- ')) {
                 return (
-                  <li key={i} className="text-[#AAA] text-sm leading-relaxed ml-4 list-disc">
-                    {line.replace('- ', '')}
-                  </li>
+                  <div key={i} className="flex gap-2 items-start py-0.5">
+                    <span className="text-neon mt-1.5 shrink-0 text-[8px]">▸</span>
+                    <p className="text-[#999] text-[13px] leading-relaxed">{line.replace('- ', '')}</p>
+                  </div>
                 )
               }
-              if (line.trim() === '') return <div key={i} className="h-2" />
+              if (line.trim() === '') return <div key={i} className="h-3" />
               return (
-                <p key={i} className="text-[#AAA] text-sm leading-relaxed">
+                <p key={i} className="text-[#888] text-[13px] leading-relaxed">
                   {line}
                 </p>
               )

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import CardGrid from '@/components/library/CardGrid'
 import FilterBar from '@/components/library/FilterBar'
 import ChatPanel from '@/components/chat/ChatPanel'
@@ -18,12 +19,18 @@ export default function AppShell({ items }: AppShellProps) {
   return (
     <div className="flex flex-col h-screen overflow-hidden">
       {/* Header */}
-      <header className="flex items-center justify-between px-6 py-4 border-b border-white/8 shrink-0">
-        <span className="text-neon font-bold text-lg tracking-tight">
-          GENERATION AI
-        </span>
-        <span className="text-[#444] text-sm hidden md:block">
-          tools.generation-ai.org
+      <header className="flex items-center gap-4 px-6 py-4 border-b border-white/8 shrink-0 bg-blue-brand">
+        <Image
+          src="/logo-blue-neon-new.jpg"
+          alt="Generation AI"
+          width={150}
+          height={50}
+          className="h-11 w-auto object-contain"
+          priority
+        />
+        <div className="w-px h-7 bg-white/20 hidden md:block" />
+        <span className="text-white/90 text-base font-semibold tracking-wide hidden md:block">
+          KI-Tools
         </span>
       </header>
 
