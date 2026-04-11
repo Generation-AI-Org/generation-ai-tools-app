@@ -18,8 +18,8 @@ export default function ContentCard({ item, isHighlighted, isDimmed, animationDe
         group block rounded-2xl border p-4 md:p-5 transition-all duration-300 cursor-pointer min-h-[120px]
         hover:scale-[1.015] hover:shadow-[0_8px_32px_rgba(0,0,0,0.3)]
         ${isHighlighted
-          ? 'bg-bg-card border-[var(--accent)] shadow-[0_0_32px_var(--accent-glow)] scale-[1.02] animate-pulse-once'
-          : 'bg-bg-card border-[var(--border)] hover:border-[var(--accent)]/30 hover:bg-bg-card/80'
+          ? 'bg-bg-card border-2 border-[var(--accent)] shadow-[0_0_24px_var(--accent-glow)] animate-pulse-once z-10'
+          : 'bg-bg-card border border-[var(--border)] hover:border-[var(--accent)]/30 hover:bg-bg-card/80'
         }
         ${isDimmed ? 'opacity-35' : ''}
       `}
