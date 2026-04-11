@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     description: "Die kuratierte KI-Tool-Bibliothek für Studierende im DACH-Raum. Finde die richtigen Tools für deinen Workflow.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/og-image-v2.png",
         width: 1200,
         height: 630,
         alt: "Generation AI - KI-Tools für Studierende",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Generation AI — KI-Tools für Studierende",
     description: "Die kuratierte KI-Tool-Bibliothek für Studierende im DACH-Raum.",
-    images: ["/og-image.png"],
+    images: ["/og-image-v2.png"],
   },
 
   // Robots
