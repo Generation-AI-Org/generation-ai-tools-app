@@ -15,7 +15,7 @@ v3.0 transforms the chat from full-context to intelligent tool-calling. The agen
 - Integer phases (1, 2, 3): Planned milestone work
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
-- [ ] **Phase 4: Auth Layer** - Session detection and V1/V2 routing
+- [x] **Phase 4: Auth Layer** - Session detection and V1/V2 routing (completed 2026-04-12)
 - [ ] **Phase 5: KB Tools** - Tool-calling primitives for knowledge base navigation
 - [ ] **Phase 6: Agent Integration** - Wire tool-calling into V2 chat with sources
 
@@ -68,6 +68,6 @@ Phases execute in numeric order: 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 4. Auth Layer | 0/2 | Planned | - |
+| 4. Auth Layer | 2/2 | Complete | 2026-04-12 |
 | 5. KB Tools | 0/TBD | Not started | - |
 | 6. Agent Integration | 0/TBD | Not started | - |
