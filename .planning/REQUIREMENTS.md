@@ -9,10 +9,10 @@
 
 ## KB-Tools
 
-- [ ] **KB-01**: `kb_search` - Volltextsuche ueber alle KB-Items
-- [ ] **KB-02**: `kb_read` - Einzelnes Item mit vollem Content lesen
-- [ ] **KB-03**: `kb_list` - Items einer Kategorie/Typ auflisten (optional)
-- [ ] **KB-04**: `kb_explore` - KB-Struktur erkunden (optional)
+- [x] **KB-01**: `kb_search` - Volltextsuche ueber alle KB-Items
+- [x] **KB-02**: `kb_read` - Einzelnes Item mit vollem Content lesen
+- [x] **KB-03**: `kb_list` - Items einer Kategorie/Typ auflisten (optional)
+- [x] **KB-04**: `kb_explore` - KB-Struktur erkunden (optional)
 
 ## Chat
 
@@ -42,10 +42,10 @@
 |--------|-------|--------|
 | AUTH-01 | Phase 4 | Complete |
 | AUTH-02 | Phase 4 | Complete |
-| KB-01 | Phase 5 | pending |
-| KB-02 | Phase 5 | pending |
-| KB-03 | Phase 5 | pending |
-| KB-04 | Phase 5 | pending |
+| KB-01 | Phase 5 | Complete |
+| KB-02 | Phase 5 | Complete |
+| KB-03 | Phase 5 | Complete |
+| KB-04 | Phase 5 | Complete |
 | CHAT-01 | Phase 6 | pending |
 | CHAT-02 | Phase 6 | pending |
 

@@ -16,7 +16,7 @@ v3.0 transforms the chat from full-context to intelligent tool-calling. The agen
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 4: Auth Layer** - Session detection and V1/V2 routing (completed 2026-04-12)
-- [ ] **Phase 5: KB Tools** - Tool-calling primitives for knowledge base navigation
+- [x] **Phase 5: KB Tools** - Tool-calling primitives for knowledge base navigation (completed 2026-04-12)
 - [ ] **Phase 6: Agent Integration** - Wire tool-calling into V2 chat with sources
 
 ## Phase Details
@@ -46,10 +46,10 @@ Plans:
   3. `kb_list` returns items filtered by category or type
   4. `kb_explore` returns KB structure (categories, types, counts)
   5. All tools return structured JSON usable by Claude tool-calling
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 05-01-PLAN.md — KB Tools Implementation (kbExplore, kbList, kbRead, kbSearch + Tool Definitions)
+- [x] 05-01-PLAN.md — KB Tools Implementation (kbExplore, kbList, kbRead, kbSearch + Tool Definitions)
 
 ### Phase 6: Agent Integration
 **Goal**: V2 chat uses tool-calling to answer questions from the knowledge base
@@ -72,5 +72,5 @@ Phases execute in numeric order: 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 4. Auth Layer | 2/2 | Complete | 2026-04-12 |
-| 5. KB Tools | 0/1 | Planned | - |
+| 5. KB Tools | 1/1 | Complete   | 2026-04-12 |
 | 6. Agent Integration | 0/TBD | Not started | - |
