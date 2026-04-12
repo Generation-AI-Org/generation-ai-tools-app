@@ -2,9 +2,10 @@
 
 ## Current Position
 
-Phase: Between milestones
-Status: v2.0 complete, ready for v3.0
-Last activity: 2026-04-12 — v2.0 archived
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements for v3.0
+Last activity: 2026-04-12 — Milestone v3.0 started
 
 ## Project Reference
 

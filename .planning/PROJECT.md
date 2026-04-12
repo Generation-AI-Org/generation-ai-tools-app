@@ -19,27 +19,22 @@ Eine Web-App die Studierenden hilft, die richtigen KI-Tools zu finden und KI-Kon
 - **Status:** v1.0 live — Tool-Bibliothek + Chat funktioniert
 - **Codebase:** Siehe `.planning/codebase/` für Details
 
-## Current Milestone: v2.0 Grounded Agent
+## Current Milestone: v3.0 Community Agent
 
-**Goal:** Von Tool-Empfehler zu vollwertigem Wissens-Agenten — mit strukturierter Content-Pipeline und ehrlichen Antworten.
+**Goal:** Von Full-Context Chat zu intelligentem Agent der die Wissensbasis selbstständig erkundet — mit Member-Login für tiefere Gespräche.
 
 **Target Features:**
-- Separates Content-Repo (`Generation-AI-Org/content`)
-- GitHub = Source of Truth → Sync → Supabase
-- Neue Content-Typen: concept, faq, workflow
-- Grounded Chat mit vollem Content im Context
-- "Weiß ich nicht"-Handling bei Wissenslücken
-- Quellen-Transparenz in Antworten
+- Tool-Calling Agent mit `kb_explore`, `kb_list`, `kb_read`, `kb_search`
+- Zwei Modi: V1 (public, Haiku, full-context) vs V2 (member, Sonnet, agentic)
+- Login-Wall: Supabase Auth für Member-Bereich (gleiche Auth wie Website)
+- KB-Navigation: Agent liest nur was er braucht statt alles in Context zu laden
+- Cost Control: Max 5 Tool-Calls pro Request, Pagination, Prompt Caching
 
-**Content-Workflow:**
-- Team arbeitet mit Claude Code
-- Content als Markdown mit Frontmatter
-- GitHub Action synct bei Push nach Supabase
-
-**Deferred to v3.0 (Community):**
-- Circle SSO / Login-Wall
-- V1 (extern) vs V2 (Member) Mode
-- Circle Webhook-Bot
+**Key Context:**
+- V1 bleibt wie es ist — günstig, funktioniert
+- V2 ist der neue Agent für eingeloggte Member
+- Auth via Supabase (nicht Circle SSO)
+- Architektur dokumentiert in `.planning/v3-architecture.md`
 
 ## Key Decisions
 
