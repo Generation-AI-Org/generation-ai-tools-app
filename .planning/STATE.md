@@ -3,9 +3,9 @@
 ## Current Position
 
 Phase: 1 — Content-Infrastruktur
-Plan: Ready to plan
-Status: Milestone v2.0 definiert, bereit für Phase 1 Planung
-Last activity: 2026-04-12 — Milestone v2.0 "Grounded Agent" neu definiert
+Plan: Completed
+Status: Phase 1 abgeschlossen, bereit für Phase 2
+Last activity: 2026-04-12 — Phase 1 vollständig ausgeführt
 
 ## Accumulated Context
 
@@ -44,9 +44,10 @@ Last session: 2026-04-12
 
 ## Pending Todos
 
-- [ ] Phase 1 planen (`/gsd-plan-phase 1`)
-- [ ] Content-Repo erstellen
-- [ ] Sync-Pipeline bauen
+- [x] Phase 1 planen
+- [x] Content-Repo erstellen (`Generation-AI-Org/content`)
+- [x] Sync-Pipeline bauen
+- [ ] Phase 2 planen (`/gsd-plan-phase 2`)
 
 ---
 
