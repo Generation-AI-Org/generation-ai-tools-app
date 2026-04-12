@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:kb-tools": "npx tsx --env-file=.env.local scripts/test-kb-tools.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.87.0",
