@@ -35,6 +35,7 @@ Eine Web-App die Studierenden hilft, die richtigen KI-Tools zu finden und KI-Kon
 - V2 ist der neue Agent für eingeloggte Member
 - Auth via Supabase (nicht Circle SSO)
 - Architektur dokumentiert in `.planning/v3-architecture.md`
+- **Cross-Project Auth:** `../Decisions/Auth-Architecture.md`
 
 ## Key Decisions
 

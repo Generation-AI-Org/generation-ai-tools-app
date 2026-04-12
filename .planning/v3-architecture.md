@@ -313,14 +313,14 @@ USING gin(to_tsvector('german', title || ' ' || summary || ' ' || content));
    - Schema-Erweiterung (related_slugs, FTS Index)
    - Tool-Implementations
    - Agentic Loop
-   - Login-Wall (Circle SSO oder Magic Link)
-   - Zwei Modi (V1/V2) basierend auf Auth
+   - Login-Wall (Supabase Auth — gleich wie Website)
+   - Zwei Modi (V1/V2) basierend auf Supabase Session
 
 ---
 
 ## Offene Fragen
 
-- [ ] Auth: Circle SSO oder Magic Link?
+- [x] Auth: Supabase Auth (gleich wie Website, kein Circle SSO)
 - [ ] Wie erkennen wir Member vs. Non-Member?
 - [ ] Brauchen wir Session-History in Supabase auch für V2?
 - [ ] Wie testen wir den Agent systematisch?
