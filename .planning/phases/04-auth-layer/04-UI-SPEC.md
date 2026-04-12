@@ -49,10 +49,14 @@ Exceptions: Touch targets (search button, theme toggle) are minimum 44×44px —
 
 | Role | Size | Weight | Line Height |
 |------|------|--------|-------------|
-| Body | 14px (text-sm) | 400 (regular) | 1.5 |
+| Body | 14px (text-sm) | 500 (medium) | 1.5 |
 | Label | 12px (text-xs) | 500 (medium) | 1.4 |
-| Badge | 11px (text-[11px]) | 500 (medium) | 1.0 (single line only) |
+| Badge | 12px (text-xs) | 500 (medium) | 1.0 (single line only) |
 | Chat header title | 14px (text-sm) | 600 (semibold) | 1.25 |
+
+Weights: exactly 2 — `500 (medium)` for Body, Label, Badge; `600 (semibold)` for Chat header title only.
+
+Badge differentiates from Label through color (`var(--accent)`) and border (`border-[var(--accent)]/25`), not font size. Both use 12px (text-xs).
 
 Source: Extracted from `ChatPanel.tsx` header (`text-sm font-semibold`) and `Badge.tsx` (`text-[11px] font-medium`). No heading/display sizes needed for this phase — Phase 4 only modifies the ChatPanel header and adds an inline teaser; no new page-level headings.
 
@@ -110,7 +114,7 @@ Findet die richtigen Tools...
 - Position: `inline-flex`, placed after the `<p>` title text in the header flex row
 - Padding: `px-2 py-0.5` (8px / 2px — xs/xs scale)
 - Border radius: `rounded-full`
-- Font: `text-[11px] font-medium tracking-wide`
+- Font: `text-xs font-medium tracking-wide`
 - Colors: `bg-[var(--accent-soft)] text-[var(--accent)] border border-[var(--accent)]/25`
 - Label text: "Member" (not "Pro" — see Copywriting section)
 - Visibility: only when `mode === 'member'`
