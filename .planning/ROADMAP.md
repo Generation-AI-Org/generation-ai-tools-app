@@ -46,7 +46,10 @@ Plans:
   3. `kb_list` returns items filtered by category or type
   4. `kb_explore` returns KB structure (categories, types, counts)
   5. All tools return structured JSON usable by Claude tool-calling
-**Plans**: TBD
+**Plans:** 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — KB Tools Implementation (kbExplore, kbList, kbRead, kbSearch + Tool Definitions)
 
 ### Phase 6: Agent Integration
 **Goal**: V2 chat uses tool-calling to answer questions from the knowledge base
@@ -69,5 +72,5 @@ Phases execute in numeric order: 4 -> 5 -> 6
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 4. Auth Layer | 2/2 | Complete | 2026-04-12 |
-| 5. KB Tools | 0/TBD | Not started | - |
+| 5. KB Tools | 0/1 | Planned | - |
 | 6. Agent Integration | 0/TBD | Not started | - |
