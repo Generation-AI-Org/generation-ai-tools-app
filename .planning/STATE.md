@@ -2,10 +2,10 @@
 
 ## Current Position
 
-Phase: 1 — Obsidian Sync
+Phase: 0 — Team Setup
 Plan: Ready to plan
-Status: Requirements defined, roadmap created
-Last activity: 2026-04-12 — Roadmap v2.0 finalisiert
+Status: Requirements + Roadmap fertig, Phase 0 bereit zur Planung
+Last activity: 2026-04-12 — MCP-Setup optimiert, GSD-Workflow gestartet
 
 ## Accumulated Context
 
