@@ -5,15 +5,16 @@ import QuickActions from './QuickActions'
 import MessageList from './MessageList'
 import ChatInput from './ChatInput'
 import KiwiMascot from '@/components/ui/KiwiMascot'
-import type { ChatMessage } from '@/lib/types'
+import type { ChatMessage, ChatMode } from '@/lib/types'
 
 const STORAGE_KEY = 'genai-chat-session'
 
 interface ChatPanelProps {
   onHighlight: (slugs: string[]) => void
+  mode: ChatMode
 }
 
-export default function ChatPanel({ onHighlight }: ChatPanelProps) {
+export default function ChatPanel({ onHighlight, mode }: ChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [sessionId, setSessionId] = useState<string | undefined>()
@@ -65,6 +66,7 @@ export default function ChatPanel({ onHighlight }: ChatPanelProps) {
         body: JSON.stringify({
           message: text,
           sessionId,
+          mode,
           history: newMessages.slice(-6).map((m) => ({
             role: m.role,
             content: m.content,
@@ -117,7 +119,14 @@ export default function ChatPanel({ onHighlight }: ChatPanelProps) {
           <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent-glow)]" />
         </div>
         <div>
-          <p className="text-text text-sm font-semibold leading-tight">GenAI Assistent</p>
+          <div className="flex items-center gap-2">
+            <p className="text-text text-sm font-semibold leading-tight">GenAI Assistent</p>
+            {mode === 'member' && (
+              <span className="text-xs font-medium tracking-wide px-2 py-0.5 rounded-full bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/25">
+                Member
+              </span>
+            )}
+          </div>
           <p className="text-text-muted text-xs">Findet die richtigen Tools für dich</p>
         </div>
       </div>
