@@ -2,10 +2,10 @@
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements for v2.0
-Last activity: 2026-04-12 — Milestone v2.0 started
+Phase: 1 — Obsidian Sync
+Plan: Ready to plan
+Status: Requirements defined, roadmap created
+Last activity: 2026-04-12 — Roadmap v2.0 finalisiert
 
 ## Accumulated Context
 
