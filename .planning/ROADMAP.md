@@ -34,7 +34,7 @@ v3.0 transforms the chat from full-context to intelligent tool-calling. The agen
 
 Plans:
 - [x] 04-01-PLAN.md — Supabase Auth SSR-Infrastruktur (proxy.ts, AuthProvider, initialUser Pattern)
-- [ ] 04-02-PLAN.md — V1/V2 Routing (Member Badge, Model-Switch, Login Teaser)
+- [x] 04-02-PLAN.md — V1/V2 Routing (Member Badge, Model-Switch, Login Teaser)
 
 ### Phase 5: KB Tools
 **Goal**: Agent has tools to search, read, and explore the knowledge base

@@ -5,7 +5,7 @@
 ## Auth
 
 - [x] **AUTH-01**: App erkennt ob User eingeloggt ist (Supabase Session-Check)
-- [ ] **AUTH-02**: App routet zu V1 (public) oder V2 (member) basierend auf Session
+- [x] **AUTH-02**: App routet zu V1 (public) oder V2 (member) basierend auf Session
 
 ## KB-Tools
 
@@ -41,7 +41,7 @@
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
 | AUTH-01 | Phase 4 | Complete |
-| AUTH-02 | Phase 4 | pending |
+| AUTH-02 | Phase 4 | Complete |
 | KB-01 | Phase 5 | pending |
 | KB-02 | Phase 5 | pending |
 | KB-03 | Phase 5 | pending |
