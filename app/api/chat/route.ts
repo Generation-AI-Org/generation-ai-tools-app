@@ -2,16 +2,20 @@ import { NextResponse } from 'next/server'
 import { getFullContent } from '@/lib/content'
 import { getRecommendations } from '@/lib/llm'
 import { createServerClient } from '@/lib/supabase'
-import type { ChatMessage } from '@/lib/types'
+import type { ChatMessage, ChatMode } from '@/lib/types'
 
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { message, history = [], sessionId } = body as {
+    const { message, history = [], sessionId, mode = 'public' } = body as {
       message: string
       history?: ChatMessage[]
       sessionId?: string
+      mode?: ChatMode
     }
+
+    // Validate mode — only 'public' or 'member' accepted, default to 'public'
+    const validMode: ChatMode = mode === 'member' ? 'member' : 'public'
 
     if (!message?.trim()) {
       return NextResponse.json({ error: 'Nachricht fehlt.' }, { status: 400 })
@@ -40,7 +44,7 @@ export async function POST(req: Request) {
 
     // Voller Content laden + Claude aufrufen
     const items = await getFullContent()
-    const result = await getRecommendations(message, history, items)
+    const result = await getRecommendations(message, history, items, validMode)
 
     // Assistant-Message persistieren
     await supabase.from('chat_messages').insert({

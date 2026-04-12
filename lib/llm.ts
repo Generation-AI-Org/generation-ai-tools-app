@@ -1,7 +1,10 @@
 import Anthropic from '@anthropic-ai/sdk'
-import type { ContentItem, ChatMessage, RecommendationResponse, ContentSource } from '@/lib/types'
+import type { ContentItem, ChatMessage, RecommendationResponse, ContentSource, ChatMode } from '@/lib/types'
 
-const MODEL = 'claude-haiku-4-5-20251001'
+const MODELS: Record<ChatMode, string> = {
+  public: 'claude-haiku-4-5-20251001',    // V1: cost-efficient
+  member: 'claude-sonnet-4-20250514',     // V2: higher quality
+}
 
 function buildSystemPrompt(items: ContentItem[]): string {
   const knowledgeBase = items
@@ -116,7 +119,8 @@ function parseResponse(raw: string, items: ContentItem[]): RecommendationRespons
 export async function getRecommendations(
   message: string,
   history: ChatMessage[],
-  items: ContentItem[]
+  items: ContentItem[],
+  mode: ChatMode = 'public'
 ): Promise<RecommendationResponse> {
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
@@ -138,7 +142,7 @@ export async function getRecommendations(
   ]
 
   const response = await client.messages.create({
-    model: MODEL,
+    model: MODELS[mode],
     max_tokens: 1000,
     system: buildSystemPrompt(items),
     messages,
