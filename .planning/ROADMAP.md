@@ -4,16 +4,41 @@
 
 | Phase | Name | Requirements | Status |
 |-------|------|--------------|--------|
-| 1 | Obsidian Sync | SYNC-01, SYNC-02, SYNC-03, SYNC-04 | 🔵 Pending |
+| 0 | Team Setup | SETUP-01, SETUP-02, SETUP-03, SETUP-04 | 🔵 Pending |
+| 1 | Content Sync | SYNC-01, SYNC-02, SYNC-03, SYNC-04 | 🔵 Pending |
 | 2 | Content-Typen | CONT-01, CONT-02, CONT-03, CONT-04 | 🔵 Pending |
 | 3 | Grounded Chat | CHAT-01, CHAT-02, CHAT-03, CHAT-04 | 🔵 Pending |
 | 4 | Quality & Polish | QUAL-01, QUAL-02 | 🔵 Pending |
 
-**Total:** 4 phases, 14 requirements
+**Total:** 5 phases, 18 requirements
 
 ---
 
-## Phase 1: Obsidian Sync
+## Phase 0: Team Setup
+
+**Goal:** GitHub Organization und Team-Workflow einrichten.
+
+**Requirements:**
+- SETUP-01: GitHub Organization "GenerationAI" erstellen
+- SETUP-02: Repo unter Organization verschieben/neu anlegen
+- SETUP-03: Branch Protection (main braucht Luca's Approval)
+- SETUP-04: GitHub Action für Auto-Sync bei Merge
+
+**Success Criteria:**
+1. Organization existiert auf github.com/GenerationAI
+2. tools-app Repo liegt unter der Organization
+3. PRs in main brauchen Review von Luca
+4. Nach Merge → Sync läuft automatisch
+
+**Dependencies:** Keine (Startphase)
+
+**Wer macht was:**
+- Luca: Organization erstellen (5 Min, im Browser)
+- Claude: Branch Protection + GitHub Action einrichten
+
+---
+
+## Phase 1: Content Sync
 
 **Goal:** Content aus Obsidian Vault nach Supabase synchronisieren.
 

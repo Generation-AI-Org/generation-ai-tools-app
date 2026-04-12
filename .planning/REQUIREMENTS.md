@@ -2,7 +2,14 @@
 
 ## Active Requirements
 
-### Sync (Obsidian → Supabase)
+### Team Setup
+
+- [ ] **SETUP-01**: GitHub Organization "GenerationAI" erstellt
+- [ ] **SETUP-02**: Repo unter Organization (tools-app)
+- [ ] **SETUP-03**: Branch Protection aktiv (PRs brauchen Luca's Approval)
+- [ ] **SETUP-04**: GitHub Action für Auto-Sync bei Merge
+
+### Content Sync (Repo → Supabase)
 
 - [ ] **SYNC-01**: Markdown-Files aus Vault werden nach Supabase synchronisiert
 - [ ] **SYNC-02**: Frontmatter-Schema definiert (title, slug, type, tags, status)
@@ -49,6 +56,10 @@
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
+| SETUP-01 | 0 | pending |
+| SETUP-02 | 0 | pending |
+| SETUP-03 | 0 | pending |
+| SETUP-04 | 0 | pending |
 | SYNC-01 | 1 | pending |
 | SYNC-02 | 1 | pending |
 | SYNC-03 | 1 | pending |
