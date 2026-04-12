@@ -1,4 +1,4 @@
-export type ContentType = 'tool' | 'guide' | 'faq'
+export type ContentType = 'tool' | 'guide' | 'faq' | 'concept' | 'workflow'
 export type ContentStatus = 'draft' | 'published' | 'archived'
 export type PricingModel = 'free' | 'freemium' | 'paid' | 'open_source'
 
@@ -44,7 +44,14 @@ export interface ChatMessage {
   created_at: string
 }
 
+export interface ContentSource {
+  slug: string
+  title: string
+  type: ContentType
+}
+
 export interface RecommendationResponse {
   text: string
   recommendedSlugs: string[]
+  sources: ContentSource[]
 }

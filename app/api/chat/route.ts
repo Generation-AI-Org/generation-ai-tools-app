@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getPublishedItems } from '@/lib/content'
+import { getFullContent } from '@/lib/content'
 import { getRecommendations } from '@/lib/llm'
 import { createServerClient } from '@/lib/supabase'
 import type { ChatMessage } from '@/lib/types'
@@ -38,8 +38,8 @@ export async function POST(req: Request) {
       content: message,
     })
 
-    // Items laden + Claude aufrufen
-    const items = await getPublishedItems()
+    // Voller Content laden + Claude aufrufen
+    const items = await getFullContent()
     const result = await getRecommendations(message, history, items)
 
     // Assistant-Message persistieren
@@ -54,6 +54,7 @@ export async function POST(req: Request) {
       sessionId: activeSessionId,
       text: result.text,
       recommendedSlugs: result.recommendedSlugs,
+      sources: result.sources,
     })
   } catch (error) {
     console.error('Chat API error:', error)

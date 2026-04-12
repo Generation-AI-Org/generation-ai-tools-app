@@ -1,72 +1,129 @@
 import Anthropic from '@anthropic-ai/sdk'
-import type { ContentItemMeta, ChatMessage, RecommendationResponse } from '@/lib/types'
+import type { ContentItem, ChatMessage, RecommendationResponse, ContentSource } from '@/lib/types'
 
 const MODEL = 'claude-haiku-4-5-20251001'
 
-function buildSystemPrompt(items: ContentItemMeta[]): string {
-  const itemsJson = JSON.stringify(
-    items.map((i) => ({
-      slug: i.slug,
-      title: i.title,
-      summary: i.summary,
-      category: i.category,
-      use_cases: i.use_cases,
-      pricing_model: i.pricing_model,
-    }))
-  )
+function buildSystemPrompt(items: ContentItem[]): string {
+  const knowledgeBase = items
+    .map((item) => {
+      return `---
+SLUG: ${item.slug}
+TITEL: ${item.title}
+TYP: ${item.type}
+KATEGORIE: ${item.category}
+ZUSAMMENFASSUNG: ${item.summary}
+${item.use_cases?.length ? `USE CASES: ${item.use_cases.join(', ')}` : ''}
+${item.pricing_model ? `PRICING: ${item.pricing_model}` : ''}
+${item.quick_win ? `QUICK WIN: ${item.quick_win}` : ''}
 
-  return `Du bist der KI-Tool-Berater von Generation AI — für Studierende im DACH-Raum die die richtigen KI-Tools finden wollen.
+INHALT:
+${item.content}
+---`
+    })
+    .join('\n\n')
 
-Stil: kurz, direkt, Deutsch, Du-Form. Max 3-4 Sätze Antworttext. Keine Floskeln.
+  return `Du bist der KI-Assistent von Generation AI — für Studierende im DACH-Raum.
 
-Regeln:
-- Empfiehl 1-5 Tools aus der Bibliothek unten. Nur Slugs aus dieser Liste verwenden.
-- Wenn unklar was der User will: EINE gezielte Rückfrage stellen, dann recommendedSlugs: [].
-- Wenn nichts passt: ehrlich sagen und zurück zum Thema KI-Tools lenken.
+## STRIKTE REGELN — KEINE AUSNAHMEN
 
-Antworte AUSSCHLIESSLICH mit validem JSON, kein Markdown, kein Text davor oder danach:
-{"text": "Deine Antwort hier", "recommendedSlugs": ["slug1", "slug2"]}
+1. **NUR AUS DER WISSENSBASIS ANTWORTEN**
+   Du darfst AUSSCHLIESSLICH Informationen aus der unten stehenden Wissensbasis verwenden.
+   Erfinde NIEMALS Tools, Fakten oder Empfehlungen die nicht explizit in der Wissensbasis stehen.
 
-Verfügbare Tools:
-${itemsJson}`
+2. **"WEISS ICH NICHT" BEI FEHLENDER INFO**
+   Wenn die Wissensbasis keine Antwort auf die Frage enthält:
+   - Sage ehrlich: "Dazu habe ich leider keine Informationen in meiner Wissensbasis."
+   - Erfinde NICHTS. Halluziniere NICHTS.
+   - Lenke zurück zum Thema KI-Tools/KI-Wissen falls passend.
+
+3. **QUELLEN IMMER ANGEBEN**
+   Jede Information muss mit der Quelle verknüpft sein.
+   Im "sources" Array: alle Slugs der Items aus denen du Infos verwendest.
+
+4. **EMPFEHLUNGEN NUR AUS DER LISTE**
+   Tool-Empfehlungen nur mit Slugs aus der Wissensbasis.
+   Wenn nichts passt: leeres recommendedSlugs Array, ehrliche Erklärung.
+
+## STIL
+- Deutsch, Du-Form, kurz und direkt
+- Max 3-4 Sätze Antwort
+- Keine Floskeln
+
+## ANTWORT-FORMAT
+Antworte AUSSCHLIESSLICH mit validem JSON:
+{
+  "text": "Deine Antwort hier",
+  "recommendedSlugs": ["slug1", "slug2"],
+  "sources": [
+    {"slug": "slug1", "title": "Titel 1", "type": "tool"},
+    {"slug": "slug2", "title": "Titel 2", "type": "concept"}
+  ]
 }
 
-function parseResponse(raw: string): RecommendationResponse {
+- recommendedSlugs: Nur bei Tool-Empfehlungen (max 5)
+- sources: ALLE Items aus denen du Informationen verwendet hast
+
+## WISSENSBASIS
+
+${knowledgeBase}`
+}
+
+function parseResponse(raw: string, items: ContentItem[]): RecommendationResponse {
   const trimmed = raw.trim()
+  const itemMap = new Map(items.map((i) => [i.slug, i]))
+
+  const defaultResponse: RecommendationResponse = {
+    text: 'Dazu habe ich leider keine Informationen in meiner Wissensbasis.',
+    recommendedSlugs: [],
+    sources: [],
+  }
 
   // Direkt parsen
   try {
     const parsed = JSON.parse(trimmed)
-    if (parsed.text && Array.isArray(parsed.recommendedSlugs)) {
-      return parsed as RecommendationResponse
+    if (parsed.text) {
+      return {
+        text: parsed.text,
+        recommendedSlugs: Array.isArray(parsed.recommendedSlugs) ? parsed.recommendedSlugs : [],
+        sources: Array.isArray(parsed.sources) ? parsed.sources : [],
+      }
     }
   } catch {}
 
   // JSON-Block aus Prosa extrahieren
-  const match = trimmed.match(/\{[\s\S]*"text"[\s\S]*"recommendedSlugs"[\s\S]*\}/)
+  const match = trimmed.match(/\{[\s\S]*"text"[\s\S]*\}/)
   if (match) {
     try {
       const parsed = JSON.parse(match[0])
-      if (parsed.text && Array.isArray(parsed.recommendedSlugs)) {
-        return parsed as RecommendationResponse
+      if (parsed.text) {
+        return {
+          text: parsed.text,
+          recommendedSlugs: Array.isArray(parsed.recommendedSlugs) ? parsed.recommendedSlugs : [],
+          sources: Array.isArray(parsed.sources) ? parsed.sources : [],
+        }
       }
     } catch {}
   }
 
-  // Fallback
-  return { text: trimmed || 'Ich konnte keine passenden Tools finden.', recommendedSlugs: [] }
+  // Fallback: Text ohne JSON
+  if (trimmed) {
+    return { text: trimmed, recommendedSlugs: [], sources: [] }
+  }
+
+  return defaultResponse
 }
 
 export async function getRecommendations(
   message: string,
   history: ChatMessage[],
-  items: ContentItemMeta[]
+  items: ContentItem[]
 ): Promise<RecommendationResponse> {
   const apiKey = process.env.ANTHROPIC_API_KEY
   if (!apiKey) {
     return {
-      text: 'Kein Anthropic API Key konfiguriert. Bitte ANTHROPIC_API_KEY in .env.local setzen.',
+      text: 'Kein Anthropic API Key konfiguriert.',
       recommendedSlugs: [],
+      sources: [],
     }
   }
 
@@ -82,19 +139,39 @@ export async function getRecommendations(
 
   const response = await client.messages.create({
     model: MODEL,
-    max_tokens: 800,
+    max_tokens: 1000,
     system: buildSystemPrompt(items),
     messages,
   })
 
   const raw = response.content[0].type === 'text' ? response.content[0].text : ''
-  const result = parseResponse(raw)
+  const result = parseResponse(raw, items)
 
-  // Slugs validieren — nur Slugs zurückgeben die in items existieren
+  // Slugs validieren — nur Slugs die in items existieren
   const validSlugs = new Set(items.map((i) => i.slug))
+
   result.recommendedSlugs = result.recommendedSlugs
     .filter((s) => validSlugs.has(s))
     .slice(0, 5)
+
+  // Sources validieren und anreichern
+  const validSources: ContentSource[] = []
+  const seenSlugs = new Set<string>()
+
+  for (const source of result.sources) {
+    if (source.slug && validSlugs.has(source.slug) && !seenSlugs.has(source.slug)) {
+      const item = items.find((i) => i.slug === source.slug)
+      if (item) {
+        validSources.push({
+          slug: item.slug,
+          title: item.title,
+          type: item.type,
+        })
+        seenSlugs.add(source.slug)
+      }
+    }
+  }
+  result.sources = validSources
 
   return result
 }

@@ -16,6 +16,22 @@ export async function getPublishedItems(): Promise<ContentItemMeta[]> {
   return (data ?? []) as ContentItemMeta[]
 }
 
+export async function getFullContent(): Promise<ContentItem[]> {
+  const supabase = createServerClient()
+  const { data, error } = await supabase
+    .from('content_items')
+    .select('*')
+    .eq('status', 'published')
+    .order('type', { ascending: true })
+    .order('title', { ascending: true })
+
+  if (error) {
+    console.error('getFullContent error:', error.message)
+    return []
+  }
+  return (data ?? []) as ContentItem[]
+}
+
 export async function getItemBySlug(slug: string): Promise<ContentItem | null> {
   const supabase = createServerClient()
   const { data, error } = await supabase
