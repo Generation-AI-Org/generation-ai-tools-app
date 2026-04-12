@@ -30,7 +30,11 @@ v3.0 transforms the chat from full-context to intelligent tool-calling. The agen
   2. Logged-out users see V1 chat (Haiku, full-context) - unchanged behavior
   3. Logged-in members see V2 chat interface (distinct from V1)
   4. Session state persists across page navigation within the app
-**Plans**: TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Supabase Auth SSR-Infrastruktur (proxy.ts, AuthProvider, initialUser Pattern)
+- [ ] 04-02-PLAN.md — V1/V2 Routing (Member Badge, Model-Switch, Login Teaser)
 
 ### Phase 5: KB Tools
 **Goal**: Agent has tools to search, read, and explore the knowledge base
@@ -64,6 +68,6 @@ Phases execute in numeric order: 4 -> 5 -> 6
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 4. Auth Layer | 0/TBD | Not started | - |
+| 4. Auth Layer | 0/2 | Planned | - |
 | 5. KB Tools | 0/TBD | Not started | - |
 | 6. Agent Integration | 0/TBD | Not started | - |
