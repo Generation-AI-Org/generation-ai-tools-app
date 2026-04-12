@@ -57,3 +57,26 @@ export interface RecommendationResponse {
   recommendedSlugs: string[]
   sources: ContentSource[]
 }
+
+// KB Tool result types
+export interface KBExploreResult {
+  categories: Record<string, number>
+  types: Record<string, number>
+  total: number
+}
+
+export interface KBListItem {
+  slug: string
+  title: string
+  summary: string
+  category: string
+  type: ContentType
+}
+
+export interface KBReadResult {
+  slug: string
+  title: string
+  type: ContentType
+  category: string
+  content: string
+}
