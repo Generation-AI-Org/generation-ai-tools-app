@@ -50,6 +50,8 @@ export interface ContentSource {
   type: ContentType
 }
 
+export type ChatMode = 'public' | 'member'
+
 export interface RecommendationResponse {
   text: string
   recommendedSlugs: string[]
