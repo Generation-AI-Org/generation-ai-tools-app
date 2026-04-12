@@ -6,13 +6,14 @@ import CardGrid from '@/components/library/CardGrid'
 import FilterBar from '@/components/library/FilterBar'
 import ChatPanel from '@/components/chat/ChatPanel'
 import { useTheme } from '@/components/ThemeProvider'
-import type { ContentItemMeta } from '@/lib/types'
+import type { ContentItemMeta, ChatMode } from '@/lib/types'
 
 interface AppShellProps {
   items: ContentItemMeta[]
+  mode: ChatMode
 }
 
-export default function AppShell({ items }: AppShellProps) {
+export default function AppShell({ items, mode }: AppShellProps) {
   const [highlightedSlugs, setHighlightedSlugs] = useState<string[]>([])
   const [activeTab, setActiveTab] = useState<'library' | 'chat'>('library')
   const [activeFilter, setActiveFilter] = useState('')
@@ -259,7 +260,7 @@ export default function AppShell({ items }: AppShellProps) {
             activeTab === 'library' ? 'hidden md:flex' : 'flex'
           } flex-col`}
         >
-          <ChatPanel onHighlight={setHighlightedSlugs} />
+          <ChatPanel onHighlight={setHighlightedSlugs} mode={mode} />
         </div>
       </div>
     </div>
