@@ -4,42 +4,51 @@
 
 ## What This Is
 
-Eine Web-App die Studierenden hilft, die richtigen KI-Tools zu finden. Ein Chat-Assistent empfiehlt Tools basierend auf dem Use Case — nicht durch Web-Suche oder Halluzination, sondern ausschließlich aus einer kuratierten Wissensbasis.
+Eine Web-App die Studierenden hilft, die richtigen KI-Tools zu finden und KI-Konzepte zu verstehen. Ein Chat-Assistent beantwortet Fragen ausschließlich aus einer kuratierten Wissensbasis — keine Halluzinationen, keine Web-Suche.
 
 **Live:** [tools.generation-ai.org](https://tools.generation-ai.org)
 
 ## Core Value
 
-**Grounded Recommendations.** Der Assistent antwortet nur auf Basis dessen, was wir kuratiert haben. Keine Halluzinationen, keine Web-Suche. Wenn er etwas nicht weiß, sagt er es ehrlich.
+**Grounded Knowledge.** Der Assistent antwortet nur auf Basis dessen, was wir kuratiert haben. Wenn er etwas nicht weiß, sagt er es ehrlich. Verifizierte Informationen für KI-Anfänger.
 
 ## Context
 
 - **Team:** Generation AI (Studierenden-Initiative, Uni Mannheim)
-- **Stack:** Next.js 16, React 19, Supabase, Claude API, Vercel
+- **Stack:** Next.js 15, React 19, Supabase, Claude API, Vercel
 - **Status:** v1.0 live — Tool-Bibliothek + Chat funktioniert
 - **Codebase:** Siehe `.planning/codebase/` für Details
 
-## Current Milestone: v2.0 Wissens-Integration
+## Current Milestone: v2.0 Grounded Agent
 
-**Goal:** Von reinem Tool-Empfehler zu einem Grounded Assistant erweitern — mit strukturierter Wissensbasis aus Obsidian.
+**Goal:** Von Tool-Empfehler zu vollwertigem Wissens-Agenten — mit strukturierter Content-Pipeline und ehrlichen Antworten.
 
 **Target Features:**
-- Obsidian → Supabase Sync (One-way, Vault = Source of Truth)
+- Separates Content-Repo (`Generation-AI-Org/content`)
+- GitHub = Source of Truth → Sync → Supabase
 - Neue Content-Typen: concept, faq, workflow
-- Grounded Chat mit Quellen-Transparenz
+- Grounded Chat mit vollem Content im Context
 - "Weiß ich nicht"-Handling bei Wissenslücken
+- Quellen-Transparenz in Antworten
 
-**Deferred to v2.1:**
+**Content-Workflow:**
+- Team arbeitet mit Claude Code
+- Content als Markdown mit Frontmatter
+- GitHub Action synct bei Push nach Supabase
+
+**Deferred to v3.0 (Community):**
+- Circle SSO / Login-Wall
+- V1 (extern) vs V2 (Member) Mode
 - Circle Webhook-Bot
-- Circle SSO / Member-Features
 
 ## Key Decisions
 
 | Date | Decision | Rationale |
 |------|----------|-----------|
-| 2026-04-12 | One-way Sync (Vault → Supabase) | Einfacher, keine Merge-Konflikte, Vault bleibt Source of Truth |
+| 2026-04-12 | Separates Content-Repo | Übersicht, Git-History, Team kann parallel arbeiten |
+| 2026-04-12 | GitHub als Source of Truth | Versionierung, PRs möglich, kein direktes Supabase-Editing |
 | 2026-04-12 | Grounded statt General-Purpose | Differenzierung von ChatGPT, Vertrauen durch Ehrlichkeit |
-| 2026-04-12 | Circle Integration nach v2.0 | Fokus halten, Kernwert zuerst |
+| 2026-04-12 | Login-Wall erst in v3.0 | Fokus auf Agent-Qualität zuerst |
 
 ## Validated Requirements (v1.0)
 

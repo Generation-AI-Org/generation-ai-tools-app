@@ -1,78 +1,56 @@
-# Roadmap — v2.0 Wissens-Integration
+# Roadmap — v2.0 Grounded Agent
 
 ## Overview
 
 | Phase | Name | Requirements | Status |
 |-------|------|--------------|--------|
-| 0 | Team Setup | SETUP-01, SETUP-02, SETUP-03, SETUP-04 | 🔵 Pending |
-| 1 | Content Sync | SYNC-01, SYNC-02, SYNC-03, SYNC-04 | 🔵 Pending |
-| 2 | Content-Typen | CONT-01, CONT-02, CONT-03, CONT-04 | 🔵 Pending |
-| 3 | Grounded Chat | CHAT-01, CHAT-02, CHAT-03, CHAT-04 | 🔵 Pending |
-| 4 | Quality & Polish | QUAL-01, QUAL-02 | 🔵 Pending |
+| 1 | Content-Infrastruktur | INFRA-01 bis INFRA-05 | Pending |
+| 2 | Content-Erweiterung | CONT-01 bis CONT-06 | Pending |
+| 3 | Grounded Chat | CHAT-01 bis CHAT-05 | Pending |
 
-**Total:** 5 phases, 18 requirements
+**Total:** 3 Phasen, 16 Requirements
 
 ---
 
-## Phase 0: Team Setup
+## Phase 1: Content-Infrastruktur
 
-**Goal:** GitHub Organization und Team-Workflow einrichten.
-
-**Requirements:**
-- SETUP-01: GitHub Organization "GenerationAI" erstellen
-- SETUP-02: Repo unter Organization verschieben/neu anlegen
-- SETUP-03: Branch Protection (main braucht Luca's Approval)
-- SETUP-04: GitHub Action für Auto-Sync bei Merge
-
-**Success Criteria:**
-1. Organization existiert auf github.com/GenerationAI
-2. tools-app Repo liegt unter der Organization
-3. PRs in main brauchen Review von Luca
-4. Nach Merge → Sync läuft automatisch
-
-**Dependencies:** Keine (Startphase)
-
-**Wer macht was:**
-- Luca: Organization erstellen (5 Min, im Browser)
-- Claude: Branch Protection + GitHub Action einrichten
-
----
-
-## Phase 1: Content Sync
-
-**Goal:** Content aus Obsidian Vault nach Supabase synchronisieren.
+**Goal:** Separates Content-Repo aufsetzen mit Sync-Pipeline nach Supabase.
 
 **Requirements:**
-- SYNC-01: Markdown-Files aus Vault werden nach Supabase synchronisiert
-- SYNC-02: Frontmatter-Schema definiert
-- SYNC-03: Sync-Script (`npm run sync`)
-- SYNC-04: Nur published Items
+- INFRA-01: Content-Repo erstellen
+- INFRA-02: Frontmatter-Schema definieren
+- INFRA-03: Sync-Script bauen
+- INFRA-04: GitHub Action einrichten
+- INFRA-05: Bestehenden Content exportieren
 
 **Success Criteria:**
-1. `scripts/sync-vault.ts` existiert und läuft fehlerfrei
-2. Frontmatter-Schema ist dokumentiert
-3. 3+ Test-Items aus Vault sind in Supabase sichtbar
-4. Items ohne `status: published` werden ignoriert
+1. `Generation-AI-Org/content` Repo existiert und ist public
+2. README mit Frontmatter-Schema dokumentiert
+3. `npm run sync` im Content-Repo funktioniert
+4. Push auf main triggert Sync automatisch
+5. Alle bestehenden Tools aus Supabase sind als Markdown im Repo
 
 **Dependencies:** Keine (Startphase)
 
 ---
 
-## Phase 2: Content-Typen
+## Phase 2: Content-Erweiterung
 
-**Goal:** Supabase-Schema und App für neue Content-Typen erweitern.
+**Goal:** Neue Content-Typen einführen und ersten echten Wissens-Content erstellen.
 
 **Requirements:**
-- CONT-01: Content-Typ `concept`
-- CONT-02: Content-Typ `faq`
-- CONT-03: Content-Typ `workflow`
-- CONT-04: Schema-Update
+- CONT-01: Schema für `concept`
+- CONT-02: Schema für `faq`
+- CONT-03: Schema für `workflow`
+- CONT-04: 3+ Concepts
+- CONT-05: 5+ FAQs
+- CONT-06: 2+ Workflows
 
 **Success Criteria:**
-1. `content_items.type` akzeptiert: tool, guide, concept, faq, workflow
+1. Supabase `content_items.type` akzeptiert: tool, guide, concept, faq, workflow
 2. Sync-Script verarbeitet alle Typen korrekt
-3. Mind. 1 Item pro neuem Typ in DB
-4. App zeigt neue Typen nicht als Cards (nur für Chat)
+3. Mindestens 10 neue Content-Items erstellt (3 concepts, 5 faqs, 2 workflows)
+4. Content ist via Sync in Supabase sichtbar
 
 **Dependencies:** Phase 1 (Sync muss funktionieren)
 
@@ -80,47 +58,33 @@
 
 ## Phase 3: Grounded Chat
 
-**Goal:** Chat antwortet ausschließlich aus der Wissensbasis.
+**Goal:** Chat antwortet ausschließlich aus der Wissensbasis mit Quellen-Transparenz.
 
 **Requirements:**
-- CHAT-01: Nur aus Wissensbasis antworten
-- CHAT-02: "Weiß ich nicht"-Handling
-- CHAT-03: Quellen-Transparenz
-- CHAT-04: Anti-Halluzinations-Prompt
+- CHAT-01: Grounding-Regeln im System-Prompt
+- CHAT-02: Voller Content im Context
+- CHAT-03: "Weiß ich nicht"-Handling
+- CHAT-04: Quellen-Referenz
+- CHAT-05: Keine Halluzinationen
 
 **Success Criteria:**
-1. System-Prompt enthält explizite Grounding-Regeln
-2. Bei Frage außerhalb KB: Ehrliche Antwort + Alternativen
-3. Antworten enthalten Quellen-Referenz (Item-Titel oder Slug)
-4. Test: Frage nach nicht-existentem Tool → keine Halluzination
+1. System-Prompt enthält: "Antworte NUR aus der Wissensbasis"
+2. Chat-API sendet vollen `content` an Claude (nicht nur summary)
+3. Frage nach nicht-existentem Tool → ehrliche Antwort ohne Erfindung
+4. Jede Antwort nennt die Quelle (Item-Titel oder Typ)
+5. Test: 5 Fragen außerhalb der KB → 5x "Weiß ich nicht"
 
-**Dependencies:** Phase 2 (Content-Typen müssen da sein)
-
----
-
-## Phase 4: Quality & Polish
-
-**Goal:** Grundlegende Absicherung der API.
-
-**Requirements:**
-- QUAL-01: Input-Validation
-- QUAL-02: Rate-Limiting
-
-**Success Criteria:**
-1. Leere/ungültige Messages werden abgelehnt (400)
-2. Rate-Limit greift nach 10 Requests/Minute (429)
-3. Keine Regression in bestehendem Chat-Flow
-
-**Dependencies:** Phase 3
+**Dependencies:** Phase 2 (Content muss existieren)
 
 ---
 
 ## Milestone Completion Criteria
 
-- [ ] Alle 14 Requirements erfüllt
-- [ ] Sync läuft zuverlässig
-- [ ] Chat ist grounded (keine Halluzinationen)
-- [ ] Basic Security (Validation, Rate-Limit)
+- [ ] Content-Repo existiert und ist aktiv
+- [ ] Sync-Pipeline funktioniert zuverlässig
+- [ ] Mindestens 10 neue Content-Items (concepts, faqs, workflows)
+- [ ] Chat ist vollständig grounded
+- [ ] Keine Halluzinationen bei Tests
 - [ ] Deployed auf Vercel
 
 ---

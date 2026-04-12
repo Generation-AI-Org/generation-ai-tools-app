@@ -1,79 +1,68 @@
-# Requirements — v2.0 Wissens-Integration
+# Requirements — v2.0 Grounded Agent
 
 ## Active Requirements
 
-### Team Setup
+### Content-Infrastruktur (INFRA)
 
-- [ ] **SETUP-01**: GitHub Organization "GenerationAI" erstellt
-- [ ] **SETUP-02**: Repo unter Organization (tools-app)
-- [ ] **SETUP-03**: Branch Protection aktiv (PRs brauchen Luca's Approval)
-- [ ] **SETUP-04**: GitHub Action für Auto-Sync bei Merge
+- [ ] **INFRA-01**: Content-Repo `Generation-AI-Org/content` existiert
+- [ ] **INFRA-02**: Frontmatter-Schema ist definiert und dokumentiert
+- [ ] **INFRA-03**: Sync-Script liest Markdown-Files und schreibt nach Supabase
+- [ ] **INFRA-04**: GitHub Action triggert Sync bei Push auf main
+- [ ] **INFRA-05**: Bestehender Content aus Supabase ist ins Repo exportiert
 
-### Content Sync (Repo → Supabase)
+### Content-Erweiterung (CONT)
 
-- [ ] **SYNC-01**: Markdown-Files aus Vault werden nach Supabase synchronisiert
-- [ ] **SYNC-02**: Frontmatter-Schema definiert (title, slug, type, tags, status)
-- [ ] **SYNC-03**: Sync-Script kann manuell ausgeführt werden (`npm run sync`)
-- [ ] **SYNC-04**: Nur `status: published` Items werden synchronisiert
+- [ ] **CONT-01**: Supabase Schema unterstützt Typ `concept`
+- [ ] **CONT-02**: Supabase Schema unterstützt Typ `faq`
+- [ ] **CONT-03**: Supabase Schema unterstützt Typ `workflow`
+- [ ] **CONT-04**: Mindestens 3 Concept-Einträge existieren
+- [ ] **CONT-05**: Mindestens 5 FAQ-Einträge existieren
+- [ ] **CONT-06**: Mindestens 2 Workflow-Einträge existieren
 
-### Content-Erweiterung
+### Grounded Chat (CHAT)
 
-- [ ] **CONT-01**: Neuer Content-Typ `concept` (KI-Konzepte erklärt)
-- [ ] **CONT-02**: Neuer Content-Typ `faq` (Häufige Fragen)
-- [ ] **CONT-03**: Neuer Content-Typ `workflow` (Schritt-für-Schritt Anleitungen)
-- [ ] **CONT-04**: Supabase-Schema unterstützt neue Typen
+- [ ] **CHAT-01**: System-Prompt enthält explizite Grounding-Regeln
+- [ ] **CHAT-02**: Chat erhält vollen Content (nicht nur summary)
+- [ ] **CHAT-03**: Bei Frage außerhalb der KB: ehrliche "Weiß ich nicht"-Antwort
+- [ ] **CHAT-04**: Antworten enthalten Quellen-Referenz (welches Item)
+- [ ] **CHAT-05**: Kein Halluzinieren von nicht-existenten Tools oder Fakten
 
-### Grounded Chat
+## Future Requirements (v3.0)
 
-- [ ] **CHAT-01**: Assistent antwortet NUR aus der Wissensbasis
-- [ ] **CHAT-02**: Bei Wissenslücke: ehrliche "Weiß ich nicht"-Antwort mit Alternativen
-- [ ] **CHAT-03**: Antworten zeigen Quellen (welches Item war die Basis)
-- [ ] **CHAT-04**: System-Prompt verhindert Halluzinationen explizit
-
-### Quality
-
-- [ ] **QUAL-01**: Basic Input-Validation im Chat-Endpoint
-- [ ] **QUAL-02**: Rate-Limiting für API-Route (10 req/min)
-
-## Future Requirements (v2.1)
-
-- Circle Webhook-Bot (reagiert auf @Mentions)
-- Circle SSO für Member-Login
-- Member-only Features
-- Vollständige Test-Suite
+- Circle SSO Integration
+- Login-Wall (V1 extern vs V2 Member)
+- Unterschiedliche Chat-Modi je nach Auth
+- Circle Webhook-Bot
 
 ## Out of Scope
 
 | Item | Reason |
 |------|--------|
-| Two-way Sync | Komplexität, Merge-Konflikte vermeiden |
+| Two-way Sync (Supabase → Repo) | Komplexität, Merge-Konflikte |
 | Web-Suche im Chat | Widerspricht Grounded-Prinzip |
-| Allgemeines Weltwissen | Fokus auf kuratierte Inhalte |
 | RAG/Vektordatenbank | Full-Context reicht für v2.0 |
-| Admin-Panel für Content | Obsidian ist das Authoring-Tool |
+| Admin-Panel für Content | Claude Code ist das Interface |
 
 ## Traceability
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| SETUP-01 | 0 | pending |
-| SETUP-02 | 0 | pending |
-| SETUP-03 | 0 | pending |
-| SETUP-04 | 0 | pending |
-| SYNC-01 | 1 | pending |
-| SYNC-02 | 1 | pending |
-| SYNC-03 | 1 | pending |
-| SYNC-04 | 1 | pending |
+| INFRA-01 | 1 | pending |
+| INFRA-02 | 1 | pending |
+| INFRA-03 | 1 | pending |
+| INFRA-04 | 1 | pending |
+| INFRA-05 | 1 | pending |
 | CONT-01 | 2 | pending |
 | CONT-02 | 2 | pending |
 | CONT-03 | 2 | pending |
 | CONT-04 | 2 | pending |
+| CONT-05 | 2 | pending |
+| CONT-06 | 2 | pending |
 | CHAT-01 | 3 | pending |
 | CHAT-02 | 3 | pending |
 | CHAT-03 | 3 | pending |
 | CHAT-04 | 3 | pending |
-| QUAL-01 | 4 | pending |
-| QUAL-02 | 4 | pending |
+| CHAT-05 | 3 | pending |
 
 ---
 
