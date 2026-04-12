@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AuthProvider } from "@/components/AuthProvider";
+import { getUser } from "@/lib/auth";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -82,16 +84,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUser()
+
   return (
     <html lang="de" className={inter.variable} suppressHydrationWarning>
       <body className="bg-bg text-text antialiased font-sans">
         <ThemeProvider>
-          {children}
+          <AuthProvider initialUser={user}>
+            {children}
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>
