@@ -1,6 +1,6 @@
-# v3.0 Requirements — Community Agent
+# v3.0 Requirements - Community Agent
 
-> Tool-Calling Retrieval für Member mit Session-Check
+> Tool-Calling Retrieval fuer Member mit Session-Check
 
 ## Auth
 
@@ -9,19 +9,19 @@
 
 ## KB-Tools
 
-- [ ] **KB-01**: `kb_search` — Volltextsuche über alle KB-Items
-- [ ] **KB-02**: `kb_read` — Einzelnes Item mit vollem Content lesen
-- [ ] **KB-03**: `kb_list` — Items einer Kategorie/Typ auflisten (optional)
-- [ ] **KB-04**: `kb_explore` — KB-Struktur erkunden (optional)
+- [ ] **KB-01**: `kb_search` - Volltextsuche ueber alle KB-Items
+- [ ] **KB-02**: `kb_read` - Einzelnes Item mit vollem Content lesen
+- [ ] **KB-03**: `kb_list` - Items einer Kategorie/Typ auflisten (optional)
+- [ ] **KB-04**: `kb_explore` - KB-Struktur erkunden (optional)
 
 ## Chat
 
-- [ ] **CHAT-01**: V2 Chat nutzt Tool-Calling für KB-Retrieval (Sonnet)
+- [ ] **CHAT-01**: V2 Chat nutzt Tool-Calling fuer KB-Retrieval (Sonnet)
 - [ ] **CHAT-02**: Antworten zeigen welche KB-Items genutzt wurden (Sources)
 
 ## Out of Scope (v3.0)
 
-- Login/Logout UI (läuft über Website)
+- Login/Logout UI (laeuft ueber Website)
 - Account-Management
 - Autonome Agent-Actions
 - Web-Suche Fallback
@@ -29,7 +29,7 @@
 
 ## Future (v4.0+)
 
-- Prompt Caching für Cost-Reduction
+- Prompt Caching fuer Cost-Reduction
 - Rate Limiting / Cost Controls
 - Related Items Navigation
 - German FTS Optimization
@@ -40,15 +40,16 @@
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| AUTH-01 | — | pending |
-| AUTH-02 | — | pending |
-| KB-01 | — | pending |
-| KB-02 | — | pending |
-| KB-03 | — | pending |
-| KB-04 | — | pending |
-| CHAT-01 | — | pending |
-| CHAT-02 | — | pending |
+| AUTH-01 | Phase 4 | pending |
+| AUTH-02 | Phase 4 | pending |
+| KB-01 | Phase 5 | pending |
+| KB-02 | Phase 5 | pending |
+| KB-03 | Phase 5 | pending |
+| KB-04 | Phase 5 | pending |
+| CHAT-01 | Phase 6 | pending |
+| CHAT-02 | Phase 6 | pending |
 
 ---
 
 *Created: 2026-04-12*
+*Updated: 2026-04-12 - Phase traceability added*
