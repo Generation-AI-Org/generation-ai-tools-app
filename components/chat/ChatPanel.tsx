@@ -83,6 +83,7 @@ export default function ChatPanel({ onHighlight, mode }: ChatPanelProps) {
         role: 'assistant',
         content: data.text,
         recommendedSlugs: data.recommendedSlugs,
+        sources: data.sources,
         created_at: new Date().toISOString(),
       }
       setMessages((prev) => [...prev, assistantMessage])
@@ -169,7 +170,11 @@ export default function ChatPanel({ onHighlight, mode }: ChatPanelProps) {
             )}
           </div>
         ) : (
-          <MessageList messages={messages} isLoading={isLoading} />
+          <MessageList
+            messages={messages}
+            isLoading={isLoading}
+            onSourceClick={(slug) => onHighlight([slug])}
+          />
         )}
       </div>
 

@@ -6,6 +6,7 @@ import type { ChatMessage } from '@/lib/types'
 interface MessageListProps {
   messages: ChatMessage[]
   isLoading: boolean
+  onSourceClick?: (slug: string) => void
 }
 
 // Rendert inline-Markdown: **bold**, *italic*
@@ -51,7 +52,7 @@ function MarkdownContent({ content }: { content: string }) {
   return <div className="space-y-0.5">{nodes}</div>
 }
 
-export default function MessageList({ messages, isLoading }: MessageListProps) {
+export default function MessageList({ messages, isLoading, onSourceClick }: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -73,6 +74,22 @@ export default function MessageList({ messages, isLoading }: MessageListProps) {
             }`}
           >
             {msg.role === 'assistant' ? <MarkdownContent content={msg.content} /> : msg.content}
+            {msg.role === 'assistant' && msg.sources && msg.sources.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mt-2 pt-2 border-t border-[var(--border)]/50">
+                <span className="text-xs text-text-muted">Quellen:</span>
+                {msg.sources.map((source) => (
+                  <button
+                    key={source.slug}
+                    onClick={() => onSourceClick?.(source.slug)}
+                    className="text-xs px-2 py-0.5 rounded-full bg-[var(--accent)]/10
+                               text-[var(--accent)] hover:bg-[var(--accent)]/20
+                               transition-colors cursor-pointer"
+                  >
+                    {source.title}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       ))}
