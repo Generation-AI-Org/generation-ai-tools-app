@@ -5,43 +5,50 @@ import { createClient } from '@/lib/supabase/browser'
 
 export default function AuthCallbackPage() {
   useEffect(() => {
-    const supabase = createClient()
+    const handleAuth = async () => {
+      const supabase = createClient()
 
-    // Check for error in URL fragment first
-    const hashParams = new URLSearchParams(window.location.hash.substring(1))
-    const error = hashParams.get('error')
+      // Parse URL hash for tokens (Magic Link implicit flow)
+      const hashParams = new URLSearchParams(window.location.hash.substring(1))
+      const accessToken = hashParams.get('access_token')
+      const refreshToken = hashParams.get('refresh_token')
+      const error = hashParams.get('error')
 
-    if (error) {
-      console.error('Auth error:', error, hashParams.get('error_description'))
-      window.location.href = `/login?error=${error}`
-      return
-    }
+      // Check for error first
+      if (error) {
+        console.error('Auth error:', error, hashParams.get('error_description'))
+        window.location.href = `/login?error=${error}`
+        return
+      }
 
-    // Listen for auth state changes - Supabase processes URL tokens automatically
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === 'SIGNED_IN' && session) {
+      // If we have tokens, manually set the session
+      if (accessToken && refreshToken) {
+        const { error: sessionError } = await supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken,
+        })
+
+        if (sessionError) {
+          console.error('Set session error:', sessionError)
+          window.location.href = '/login?error=session_failed'
+          return
+        }
+
         // Success - redirect to home
         window.location.href = '/'
-      } else if (event === 'TOKEN_REFRESHED') {
-        // Token was refreshed, also redirect
-        window.location.href = '/'
+        return
       }
-    })
 
-    // Fallback: check if already signed in after a short delay
-    const timeout = setTimeout(async () => {
+      // No tokens in hash - check if already signed in
       const { data: { session } } = await supabase.auth.getSession()
       if (session) {
         window.location.href = '/'
       } else {
-        window.location.href = '/login?error=session_failed'
+        window.location.href = '/login?error=no_tokens'
       }
-    }, 3000)
-
-    return () => {
-      subscription.unsubscribe()
-      clearTimeout(timeout)
     }
+
+    handleAuth()
   }, [])
 
   return (
