@@ -4,6 +4,7 @@ import { getRecommendations } from '@/lib/llm'
 import { runAgent } from '@/lib/agent'
 import { createServerClient } from '@/lib/supabase'
 import { sanitizeUserInput } from '@/lib/sanitize'
+import { checkRateLimit, getClientIp } from '@/lib/ratelimit'
 import type { ChatMessage, ChatMode } from '@/lib/types'
 
 export async function POST(req: Request) {
@@ -14,6 +15,29 @@ export async function POST(req: Request) {
       history?: ChatMessage[]
       sessionId?: string
       mode?: ChatMode
+    }
+
+    // Rate limit check FIRST (per D-14, D-15)
+    const ip = getClientIp(req)
+    const rateLimitSessionId = sessionId ?? 'anonymous'
+    const rateLimit = await checkRateLimit(ip, rateLimitSessionId)
+
+    if (!rateLimit.success) {
+      return NextResponse.json(
+        {
+          error: 'Du sendest gerade viele Nachrichten. Bitte warte kurz.',
+          retryAfter: rateLimit.retryAfter,
+        },
+        {
+          status: 429,
+          headers: {
+            'Retry-After': String(rateLimit.retryAfter ?? 60),
+            'X-RateLimit-Limit': String(rateLimit.limit ?? 20),
+            'X-RateLimit-Remaining': '0',
+            'X-RateLimit-Reset': String(rateLimit.reset ?? Date.now() + 60000),
+          },
+        }
+      )
     }
 
     // Validate mode — only 'public' or 'member' accepted, default to 'public'
