@@ -1,12 +1,23 @@
-import { createClient } from '@supabase/supabase-js'
+// lib/supabase.ts
+// Supabase clients using validated environment variables
+// Source: lib/env.ts for type-safe validation
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+import { createClient } from '@supabase/supabase-js'
+import { env } from './env'
 
 // Browser client (read-only, RLS enforced)
-export const supabase = createClient(url, anon)
+// Uses validated public env vars (safe to expose)
+export const supabase = createClient(
+  env.NEXT_PUBLIC_SUPABASE_URL,
+  env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+)
 
-// Server client (service role, bypasses RLS — nur in Server Components / API Routes)
+// Server client (service role, bypasses RLS)
+// Only use in Server Components / API Routes
+// Service role key is validated but never exposed to client
 export function createServerClient() {
-  return createClient(url, process.env.SUPABASE_SERVICE_ROLE_KEY!)
+  return createClient(
+    env.NEXT_PUBLIC_SUPABASE_URL,
+    env.SUPABASE_SERVICE_ROLE_KEY
+  )
 }
