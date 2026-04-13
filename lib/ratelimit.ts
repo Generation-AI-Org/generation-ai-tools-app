@@ -9,10 +9,10 @@ import { Redis } from '@upstash/redis'
 // Uses UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN
 const redis = Redis.fromEnv()
 
-// IP-based rate limit: 20 requests per minute (per D-14)
+// IP-based rate limit: 10 requests per minute
 const ipRatelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(20, '1 m'),
+  limiter: Ratelimit.slidingWindow(10, '1 m'),
   prefix: 'ratelimit:chat:ip',
   analytics: true,
 })
