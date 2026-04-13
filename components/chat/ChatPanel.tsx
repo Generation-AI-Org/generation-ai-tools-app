@@ -121,10 +121,12 @@ export default function ChatPanel({ onHighlight, mode }: ChatPanelProps) {
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <p className="text-text text-sm font-semibold leading-tight">GenAI Assistent</p>
+            <p className="text-text text-sm font-semibold leading-tight">
+              GenAI Assistent {mode === 'member' ? 'Pro' : 'Lite'}
+            </p>
             {mode === 'member' && (
               <span className="text-xs font-medium tracking-wide px-2 py-0.5 rounded-full bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/25">
-                Member
+                Pro
               </span>
             )}
           </div>
