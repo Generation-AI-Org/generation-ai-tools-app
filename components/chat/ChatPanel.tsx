@@ -157,12 +157,10 @@ export default function ChatPanel({ onHighlight, mode }: ChatPanelProps) {
                   <p className="text-xs text-[var(--text-secondary)] flex-1">
                     Als Member bekommst du Zugang zum erweiterten Assistenten.{' '}
                     <a
-                      href="https://generation-ai.org"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="/login"
                       className="text-[var(--accent)] hover:underline font-medium"
                     >
-                      Jetzt beitreten
+                      Jetzt anmelden
                     </a>
                   </p>
                 </div>
