@@ -100,7 +100,11 @@ Plans:
   3. CORS configured to allow only trusted origins
   4. Cookies have Secure, HttpOnly, SameSite=Strict flags
   5. CSRF protection on state-changing endpoints (if applicable)
-**Plans:** TBD
+**Plans:** 2 plans
+
+Plans:
+- [ ] 08-01-PLAN.md — CSP via Middleware mit Nonces + Cookie Security
+- [ ] 08-02-PLAN.md — CORS + CSRF Protection fuer API Routes
 
 ### Phase 9: Security Observability
 **Goal**: Visibility into security events for detection and response
@@ -138,6 +142,6 @@ Phases execute in numeric order: 4 -> 5 -> 6 -> 7 -> 8
 | 5. KB Tools | 1/1 | Complete | 2026-04-12 |
 | 6. Agent Integration | 1/1 | Complete | 2026-04-13 |
 | 7. Security Fundamentals | 4/4 | Complete | 2026-04-13 |
-| 8. Security Headers & Session | 0/? | Planned | - |
+| 8. Security Headers & Session | 0/2 | Planned | - |
 | 9. Security Observability | 0/? | Planned | - |
 | 10. Testing | 0/? | Planned | - |
