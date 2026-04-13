@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
+import { createClient } from '@/lib/supabase/browser'
 
 export default function AuthCallbackPage() {
   useEffect(() => {
@@ -22,6 +22,7 @@ export default function AuthCallbackPage() {
       }
 
       // Get session - supabase client reads tokens from URL fragment automatically
+      const supabase = createClient()
       const { data: { session }, error: sessionError } = await supabase.auth.getSession()
 
       if (sessionError || !session) {
