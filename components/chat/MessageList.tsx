@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import type { ChatMessage } from '@/lib/types'
 
 interface MessageListProps {
@@ -9,47 +11,55 @@ interface MessageListProps {
   onSourceClick?: (slug: string) => void
 }
 
-// Rendert inline-Markdown: **bold**, *italic*
-function renderInline(text: string): React.ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g)
-  return parts.map((part, i) => {
-    if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={i} className="text-text font-semibold">{part.slice(2, -2)}</strong>
-    }
-    if (part.startsWith('*') && part.endsWith('*')) {
-      return <em key={i} className="text-text-secondary">{part.slice(1, -1)}</em>
-    }
-    return part
-  })
-}
-
-// Rendert Markdown-Text als strukturiertes JSX
+// XSS-safe markdown rendering via react-markdown (per D-06, D-09)
 function MarkdownContent({ content }: { content: string }) {
-  const lines = content.split('\n')
-  const nodes: React.ReactNode[] = []
-
-  lines.forEach((line, i) => {
-    if (line.startsWith('## ')) {
-      nodes.push(
-        <p key={i} className="font-semibold text-text mt-2 mb-0.5">
-          {renderInline(line.slice(3))}
-        </p>
-      )
-    } else if (line.startsWith('- ') || line.startsWith('• ')) {
-      nodes.push(
-        <div key={i} className="flex gap-2 items-start">
-          <span className="text-[var(--accent)] mt-[3px] shrink-0 text-[8px]">▸</span>
-          <span>{renderInline(line.slice(2))}</span>
-        </div>
-      )
-    } else if (line.trim() === '') {
-      nodes.push(<div key={i} className="h-1.5" />)
-    } else {
-      nodes.push(<p key={i}>{renderInline(line)}</p>)
-    }
-  })
-
-  return <div className="space-y-0.5">{nodes}</div>
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      components={{
+        p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+        strong: ({ children }) => <strong className="font-semibold text-text">{children}</strong>,
+        em: ({ children }) => <em className="text-text-secondary">{children}</em>,
+        ul: ({ children }) => <ul className="list-disc list-inside space-y-1 my-2">{children}</ul>,
+        ol: ({ children }) => <ol className="list-decimal list-inside space-y-1 my-2">{children}</ol>,
+        li: ({ children }) => <li className="text-text-secondary">{children}</li>,
+        code: ({ children, className }) => {
+          // Inline code vs code block detection
+          const isBlock = className?.includes('language-')
+          if (isBlock) {
+            return (
+              <pre className="bg-[var(--border)] p-3 rounded-lg overflow-x-auto my-2">
+                <code className="text-xs font-mono">{children}</code>
+              </pre>
+            )
+          }
+          return (
+            <code className="bg-[var(--border)] px-1.5 py-0.5 rounded text-xs font-mono">
+              {children}
+            </code>
+          )
+        },
+        a: ({ href, children }) => (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--accent)] hover:underline"
+          >
+            {children}
+          </a>
+        ),
+        h2: ({ children }) => (
+          <p className="font-semibold text-text mt-3 mb-1">{children}</p>
+        ),
+        h3: ({ children }) => (
+          <p className="font-medium text-text mt-2 mb-1">{children}</p>
+        ),
+      }}
+    >
+      {content}
+    </ReactMarkdown>
+  )
 }
 
 export default function MessageList({ messages, isLoading, onSourceClick }: MessageListProps) {
