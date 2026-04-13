@@ -1,13 +1,14 @@
-# Roadmap: Tools App v3.0
+# Roadmap: Tools App
 
 ## Overview
 
-v3.0 transforms the chat from full-context to intelligent tool-calling. The agent navigates the knowledge base on-demand, with member authentication controlling access to the advanced V2 mode. Three phases: Auth first (session detection and routing), then KB tools (the retrieval primitives), then agent integration (wiring it together).
+Tools App ist die KI-Tool-Bibliothek + Chat-Assistent für Generation AI. v3.0 hat Tool-Calling Agent eingeführt, v3.1 fokussiert auf Security Hardening und Testing.
 
 ## Milestones
 
 - v2.0 Grounded Agent - Phases 1-3 (shipped 2026-04-12, pre-GSD)
-- v3.0 Community Agent - Phases 4-6 (in progress)
+- v3.0 Community Agent - Phases 4-6 (shipped 2026-04-13)
+- v3.1 Hardening - Phases 7-8 (planned)
 
 ## Phases
 
@@ -17,7 +18,9 @@ v3.0 transforms the chat from full-context to intelligent tool-calling. The agen
 
 - [x] **Phase 4: Auth Layer** - Session detection and V1/V2 routing (completed 2026-04-12)
 - [x] **Phase 5: KB Tools** - Tool-calling primitives for knowledge base navigation (completed 2026-04-12)
-- [ ] **Phase 6: Agent Integration** - Wire tool-calling into V2 chat with sources
+- [x] **Phase 6: Agent Integration** - Wire tool-calling into V2 chat with sources (completed 2026-04-13)
+- [ ] **Phase 7: Security Hardening** - RLS policies, input validation, rate limiting
+- [ ] **Phase 8: Testing** - E2E tests, unit tests for agent and KB tools
 
 ## Phase Details
 
@@ -66,13 +69,37 @@ Plans:
 Plans:
 - [x] 06-01-PLAN.md — Agent-Loop, Chat-Route V2-Branch, Sources UI
 
+### Phase 7: Security Hardening
+**Goal**: Secure the app before scaling to more users
+**Depends on**: v3.0 (app must be functional first)
+**Requirements**: SEC-01, SEC-02, SEC-03
+**Success Criteria** (what must be TRUE):
+  1. RLS policies protect chat_sessions and chat_messages tables
+  2. All user input is sanitized (XSS protection)
+  3. API routes have rate limiting (prevent DoS)
+  4. No sensitive data exposed in client-side code
+**Plans:** TBD
+
+### Phase 8: Testing
+**Goal**: Establish test coverage for critical paths
+**Depends on**: Phase 7 (security should be in place)
+**Requirements**: TEST-01, TEST-02
+**Success Criteria** (what must be TRUE):
+  1. Unit tests for KB tools (kbSearch, kbRead, kbList, kbExplore)
+  2. Unit tests for agent loop (tool calling, source tracking)
+  3. E2E tests for chat flow (V1 and V2 modes)
+  4. CI runs tests on PR
+**Plans:** TBD
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 4 -> 5 -> 6
+Phases execute in numeric order: 4 -> 5 -> 6 -> 7 -> 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 4. Auth Layer | 2/2 | Complete | 2026-04-12 |
-| 5. KB Tools | 1/1 | Complete   | 2026-04-12 |
+| 5. KB Tools | 1/1 | Complete | 2026-04-12 |
 | 6. Agent Integration | 1/1 | Complete | 2026-04-13 |
+| 7. Security Hardening | 0/? | Planned | - |
+| 8. Testing | 0/? | Planned | - |
