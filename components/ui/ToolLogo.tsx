@@ -24,6 +24,7 @@ export default function ToolLogo({ slug, domain, name, size = 48 }: ToolLogoProp
     'n8n', 'zapier', 'deepl', 'canva', 'replit',
     'notebooklm', 'suno', 'v0',
     'grok', 'otter-ai', 'elicit', 'bolt', 'runway', 'super-whisper',
+    'lovable',
   ].includes(slug)
 
   if (hasCustomIcon) {

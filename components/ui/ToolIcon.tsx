@@ -128,6 +128,16 @@ function SuperWhisperSvg({ size }: { size: number }) {
   )
 }
 
+function LovableSvg({ size }: { size: number }) {
+  // Lovable: Official logo — stylized L-shape with rounded corners
+  // Source: https://lovable.dev/favicon.svg
+  return (
+    <svg viewBox="0 0 180 180" width={size} height={size} fill="currentColor">
+      <path fillRule="evenodd" clipRule="evenodd" d="M54.6052 0C83.9389 0 107.719 23.8424 107.719 53.2535V73.4931H125.395C154.729 73.4931 178.508 97.3355 178.508 126.747C178.508 156.158 154.729 180 125.395 180H1.4917V53.2535C1.4917 23.8424 25.2714 0 54.6052 0Z" />
+    </svg>
+  )
+}
+
 type IconEntry =
   | { type: 'si'; component: React.ComponentType<{ size?: number; className?: string }> }
   | { type: 'custom'; component: React.FC<{ size: number }> }
@@ -161,6 +171,7 @@ const TOOL_ICONS: Record<string, IconEntry> = {
   bolt:             { type: 'custom', component: BoltSvg },
   runway:           { type: 'custom', component: RunwaySvg },
   'super-whisper':  { type: 'custom', component: SuperWhisperSvg },
+  lovable:          { type: 'custom', component: LovableSvg },
 }
 
 interface ToolIconProps {
