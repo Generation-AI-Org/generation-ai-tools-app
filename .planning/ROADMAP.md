@@ -61,8 +61,10 @@ Plans:
   3. Responses include sources array showing which KB items were used
   4. Sources are clickable/visible to user in the chat interface
   5. Agent stays grounded - admits when KB has no relevant info
-**Plans**: TBD
-**UI hint**: yes
+**Plans:** 1 plan
+
+Plans:
+- [ ] 06-01-PLAN.md — Agent-Loop, Chat-Route V2-Branch, Sources UI
 
 ## Progress
 
@@ -73,4 +75,4 @@ Phases execute in numeric order: 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 4. Auth Layer | 2/2 | Complete | 2026-04-12 |
 | 5. KB Tools | 1/1 | Complete   | 2026-04-12 |
-| 6. Agent Integration | 0/TBD | Not started | - |
+| 6. Agent Integration | 0/1 | In Progress | - |
