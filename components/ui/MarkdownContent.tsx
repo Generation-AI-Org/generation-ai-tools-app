@@ -1,15 +1,18 @@
 'use client'
 
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 interface MarkdownContentProps {
   content: string
 }
 
+// XSS-safe content rendering via react-markdown (per D-11)
 export default function MarkdownContent({ content }: MarkdownContentProps) {
   return (
     <div className="prose prose-sm max-w-none">
       <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
         components={{
           h1: ({ children }) => (
             <h1 className="text-xl font-bold text-text mt-8 mb-3 first:mt-0 tracking-tight">
