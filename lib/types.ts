@@ -41,6 +41,7 @@ export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
   recommendedSlugs?: string[]
+  sources?: ContentSource[]
   created_at: string
 }
 
