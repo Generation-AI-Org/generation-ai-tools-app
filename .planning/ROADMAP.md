@@ -19,7 +19,7 @@ Tools App ist die KI-Tool-Bibliothek + Chat-Assistent für Generation AI. v3.0 h
 - [x] **Phase 4: Auth Layer** - Session detection and V1/V2 routing (completed 2026-04-12)
 - [x] **Phase 5: KB Tools** - Tool-calling primitives for knowledge base navigation (completed 2026-04-12)
 - [x] **Phase 6: Agent Integration** - Wire tool-calling into V2 chat with sources (completed 2026-04-13)
-- [ ] **Phase 7: Security Fundamentals** - RLS policies, input validation, rate limiting, env validation
+- [x] **Phase 7: Security Fundamentals** - RLS policies, input validation, rate limiting, env validation (completed 2026-04-13)
 - [ ] **Phase 8: Security Headers & Session** - CSP, CSRF protection, secure cookies, CORS hardening
 - [ ] **Phase 9: Security Observability** - Audit logging, security monitoring, alerting
 - [ ] **Phase 10: Testing** - E2E tests, unit tests, security tests
@@ -88,7 +88,7 @@ Plans:
 - [x] 07-01-PLAN.md — RLS Policies (Hybrid V1 public/V2 user-isolated)
 - [x] 07-02-PLAN.md — Input Sanitization (DOMPurify + react-markdown)
 - [x] 07-03-PLAN.md — Rate Limiting (Upstash Redis, IP + Session)
-- [ ] 07-04-PLAN.md — Env Validation (t3-env, build-time checks)
+- [x] 07-04-PLAN.md — Env Validation (t3-env, build-time checks)
 
 ### Phase 8: Security Headers & Session
 **Goal**: Browser-level security and session hardening
@@ -137,7 +137,7 @@ Phases execute in numeric order: 4 -> 5 -> 6 -> 7 -> 8
 | 4. Auth Layer | 2/2 | Complete | 2026-04-12 |
 | 5. KB Tools | 1/1 | Complete | 2026-04-12 |
 | 6. Agent Integration | 1/1 | Complete | 2026-04-13 |
-| 7. Security Fundamentals | 3/4 | In Progress | - |
+| 7. Security Fundamentals | 4/4 | Complete | 2026-04-13 |
 | 8. Security Headers & Session | 0/? | Planned | - |
 | 9. Security Observability | 0/? | Planned | - |
 | 10. Testing | 0/? | Planned | - |

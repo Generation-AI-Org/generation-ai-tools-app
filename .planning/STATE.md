@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v3.1
 milestone_name: Hardening
-status: executing
-stopped_at: Plan 07-01 complete, awaiting RLS migration
-last_updated: "2026-04-13T07:45:00.000Z"
-last_activity: 2026-04-13 -- Plan 07-01 RLS Policies complete
+status: phase_complete
+stopped_at: Phase 7 complete
+last_updated: "2026-04-13T10:15:00.000Z"
+last_activity: 2026-04-13 -- Phase 7 Security Fundamentals complete
 progress:
   total_phases: 2
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 4
-  completed_plans: 3
-  percent: 75
+  completed_plans: 4
+  percent: 100
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-12)
 
 **Core value:** Grounded Knowledge - Agent antwortet nur aus kuratierter Wissensbasis
-**Current focus:** v3.0 Complete — Ready for testing/deploy
+**Current focus:** v3.1 Security Hardening — Phase 7 complete
 
 ## Current Position
 
-Phase: 7 of 8 (Security Hardening) — EXECUTING
-Plan: 3 of 4 (07-03 Rate Limiting COMPLETE)
-Status: Executing Phase 7 plans
-Last activity: 2026-04-13 -- Plan 07-03 Rate Limiting complete
+Phase: 7 of 8 (Security Fundamentals) — COMPLETE
+Plan: 4 of 4 (all complete)
+Status: Phase 7 complete, ready for Phase 8
+Last activity: 2026-04-13 -- Phase 7 all plans executed
 
-Progress: [#######---] 75%
+Progress: [##########] 100%
 
 ## Performance Metrics
 
@@ -85,10 +85,11 @@ Recent decisions affecting current work:
 
 ### Known Issues (from v2.0)
 
-- ~~RLS Chat-Policies offen~~ -> 07-01 DONE (awaiting migration)
+- ~~RLS Chat-Policies offen~~ -> 07-01 DONE (awaiting SQL migration in Supabase Dashboard)
 - ~~Keine Input-Validation/XSS-Schutz~~ -> 07-02 DONE (DOMPurify + react-markdown)
 - ~~Kein Rate-Limiting~~ -> 07-03 DONE (Upstash Redis, 20/min IP, 60/h session)
-- Keine Tests
+- ~~Keine Env-Validation~~ -> 07-04 DONE (t3-env + zod)
+- Keine Tests (Phase 10)
 
 ### Pending Todos
 
@@ -101,10 +102,14 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-04-13
-Stopped at: v3.0 milestone complete
+Stopped at: Phase 7 complete
 Resume file: None
 
-**Next:** `/gsd-plan-phase 7` — Security Hardening (RLS, Input Validation, Rate Limiting)
+**User Actions Required:**
+1. **Supabase RLS Migration:** Execute SQL from `supabase/schema.sql` (lines 76-134) in Supabase Dashboard -> SQL Editor
+2. **Upstash Redis Setup:** Create database at console.upstash.com, add UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN to .env.local and Vercel
+
+**Next:** `/gsd-plan-phase 8` — Security Headers & Session (CSP, CORS, Secure Cookies, CSRF)
 
 ---
 
