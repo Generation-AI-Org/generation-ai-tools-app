@@ -126,7 +126,7 @@ export default function ChatPanel({ onHighlight, mode }: ChatPanelProps) {
             </p>
             {mode === 'member' && (
               <span className="text-xs font-medium tracking-wide px-2 py-0.5 rounded-full bg-[var(--accent)]/15 text-[var(--accent)] border border-[var(--accent)]/25">
-                Pro
+                Member
               </span>
             )}
           </div>
