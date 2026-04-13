@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getFullContent } from '@/lib/content'
 import { getRecommendations } from '@/lib/llm'
+import { runAgent } from '@/lib/agent'
 import { createServerClient } from '@/lib/supabase'
 import type { ChatMessage, ChatMode } from '@/lib/types'
 
@@ -42,24 +43,44 @@ export async function POST(req: Request) {
       content: message,
     })
 
-    // Voller Content laden + Claude aufrufen
-    const items = await getFullContent()
-    const result = await getRecommendations(message, history, items, validMode)
+    if (validMode === 'member') {
+      // V2: Agent mit Tool-Calling
+      const result = await runAgent(message, history)
 
-    // Assistant-Message persistieren
-    await supabase.from('chat_messages').insert({
-      session_id: activeSessionId,
-      role: 'assistant',
-      content: result.text,
-      recommended_slugs: result.recommendedSlugs,
-    })
+      // Assistant-Message persistieren (mit sources)
+      await supabase.from('chat_messages').insert({
+        session_id: activeSessionId,
+        role: 'assistant',
+        content: result.text,
+        // recommended_slugs bleibt leer fuer V2
+      })
 
-    return NextResponse.json({
-      sessionId: activeSessionId,
-      text: result.text,
-      recommendedSlugs: result.recommendedSlugs,
-      sources: result.sources,
-    })
+      return NextResponse.json({
+        sessionId: activeSessionId,
+        text: result.text,
+        recommendedSlugs: [], // V2 nutzt sources statt recommendedSlugs
+        sources: result.sources,
+      })
+    } else {
+      // V1: Full-Context (bestehender Code)
+      const items = await getFullContent()
+      const result = await getRecommendations(message, history, items, validMode)
+
+      // Assistant-Message persistieren
+      await supabase.from('chat_messages').insert({
+        session_id: activeSessionId,
+        role: 'assistant',
+        content: result.text,
+        recommended_slugs: result.recommendedSlugs,
+      })
+
+      return NextResponse.json({
+        sessionId: activeSessionId,
+        text: result.text,
+        recommendedSlugs: result.recommendedSlugs,
+        sources: result.sources,
+      })
+    }
   } catch (error) {
     console.error('Chat API error:', error)
     return NextResponse.json(
