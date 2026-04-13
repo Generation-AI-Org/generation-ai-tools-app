@@ -455,17 +455,17 @@ export async function POST(req: Request) {
 | A2 | JSDOM ist akzeptabel fuer Server-Side DOMPurify | Code Examples | Alternatives Package noetig |
 | A3 | Upstash Free Tier reicht fuer MVP (10k commands/day) | Standard Stack | Upgrade auf Pro Plan noetig |
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Upstash Redis Setup**
    - What we know: Upstash Konto und Redis-Instance werden benoetigt
-   - What's unclear: Hat das Projekt bereits ein Upstash-Konto?
-   - Recommendation: Vor Phase-Start Upstash Redis Instance erstellen, Env-Vars holen
+   - What's unclear: ~~Hat das Projekt bereits ein Upstash-Konto?~~
+   - **Resolution:** Plan 07-03 enthaelt user_setup Section mit Anleitung zur Erstellung eines Upstash-Kontos und Redis-Instance. Die Env-Vars UPSTASH_REDIS_REST_URL und UPSTASH_REDIS_REST_TOKEN werden dort dokumentiert.
 
 2. **Graceful Degradation bei Redis-Ausfall**
    - What we know: CONTEXT.md sagt "Rate Limiting bypassen wenn KV down"
-   - What's unclear: Wie genau implementieren?
-   - Recommendation: Try-catch mit Fallback `{ success: true }` + Warning-Log
+   - What's unclear: ~~Wie genau implementieren?~~
+   - **Resolution:** Plan 07-03 Task 2 implementiert try-catch in checkRateLimit() mit Fallback `{ success: true }` + console.warn() Logging. Siehe lib/ratelimit.ts Pattern im Plan.
 
 ## Environment Availability
 
