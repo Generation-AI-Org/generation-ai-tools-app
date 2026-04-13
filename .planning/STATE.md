@@ -93,7 +93,23 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-None yet.
+**Login Flow (Supabase Dashboard Config):**
+- [ ] Redirect URLs hinzufügen: `http://localhost:3000/auth/callback` + `https://tools.generation-ai.org/auth/callback`
+- [ ] Site URL setzen auf Production URL
+- [ ] Email Template anpassen (Authentication → Email Templates → "Confirm signup")
+- [ ] Custom SMTP einrichten für eigenen Absender (Empfehlung: Resend, gratis 3000/Monat)
+
+**Anleitung Redirect URLs:**
+1. Supabase Dashboard → Authentication → URL Configuration
+2. Bei "Redirect URLs" die beiden URLs hinzufügen
+3. Speichern
+
+**Anleitung Custom SMTP (Resend):**
+1. resend.com Account erstellen
+2. Domain verifizieren (DNS TXT Record)
+3. API Key erstellen
+4. Supabase → Project Settings → Authentication → SMTP Settings
+5. Enable Custom SMTP, Resend SMTP Credentials eintragen
 
 ### Blockers/Concerns
 
@@ -106,8 +122,9 @@ Stopped at: Phase 7 complete
 Resume file: None
 
 **User Actions Required:**
-1. **Supabase RLS Migration:** Execute SQL from `supabase/schema.sql` (lines 76-134) in Supabase Dashboard -> SQL Editor
-2. **Upstash Redis Setup:** Create database at console.upstash.com, add UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN to .env.local and Vercel
+1. ~~**Supabase RLS Migration**~~ — DONE
+2. ~~**Upstash Redis Setup**~~ — DONE
+3. **Login Flow Config** — Siehe Pending Todos oben
 
 **Next:** `/gsd-plan-phase 8` — Security Headers & Session (CSP, CORS, Secure Cookies, CSRF)
 
