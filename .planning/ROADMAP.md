@@ -64,7 +64,7 @@ Plans:
 **Plans:** 1 plan
 
 Plans:
-- [ ] 06-01-PLAN.md — Agent-Loop, Chat-Route V2-Branch, Sources UI
+- [x] 06-01-PLAN.md — Agent-Loop, Chat-Route V2-Branch, Sources UI
 
 ## Progress
 
@@ -75,4 +75,4 @@ Phases execute in numeric order: 4 -> 5 -> 6
 |-------|----------------|--------|-----------|
 | 4. Auth Layer | 2/2 | Complete | 2026-04-12 |
 | 5. KB Tools | 1/1 | Complete   | 2026-04-12 |
-| 6. Agent Integration | 0/1 | In Progress | - |
+| 6. Agent Integration | 1/1 | Complete | 2026-04-13 |
