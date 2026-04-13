@@ -1,9 +1,10 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { getItemBySlug, getPublishedItems } from '@/lib/content'
+import { getItemBySlug, getPublishedTools } from '@/lib/content'
 import Badge from '@/components/ui/Badge'
 import ToolLogo from '@/components/ui/ToolLogo'
 import DetailHeaderLogo from '@/components/ui/DetailHeaderLogo'
+import MarkdownContent from '@/components/ui/MarkdownContent'
 import type { Metadata } from 'next'
 
 interface Props {
@@ -21,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const items = await getPublishedItems()
+  const items = await getPublishedTools()
   return items.map((item) => ({ slug: item.slug }))
 }
 
@@ -105,31 +106,7 @@ export default async function ItemPage({ params }: Props) {
 
         {/* Content */}
         {item.content && (
-          <div className="space-y-1">
-            {item.content.split('\n').map((line, i) => {
-              if (line.startsWith('## ')) {
-                return (
-                  <h2 key={i} className="text-base font-bold text-text mt-8 mb-2 first:mt-0 tracking-tight">
-                    {line.replace('## ', '')}
-                  </h2>
-                )
-              }
-              if (line.startsWith('- ')) {
-                return (
-                  <div key={i} className="flex gap-2 items-start py-0.5">
-                    <span className="text-[var(--accent)] mt-1.5 shrink-0 text-[8px]">▸</span>
-                    <p className="text-text-secondary text-[13px] leading-relaxed">{line.replace('- ', '')}</p>
-                  </div>
-                )
-              }
-              if (line.trim() === '') return <div key={i} className="h-3" />
-              return (
-                <p key={i} className="text-text-muted text-[13px] leading-relaxed">
-                  {line}
-                </p>
-              )
-            })}
-          </div>
+          <MarkdownContent content={item.content} />
         )}
 
         {/* CTA */}
