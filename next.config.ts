@@ -1,3 +1,7 @@
+// Validate environment variables at build time
+// This import triggers t3-env validation
+import './lib/env'
+
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
