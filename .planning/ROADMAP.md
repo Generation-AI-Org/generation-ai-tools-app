@@ -85,8 +85,8 @@ Plans:
 **Plans:** 4 plans
 
 Plans:
-- [ ] 07-01-PLAN.md — RLS Policies (Hybrid V1 public/V2 user-isolated)
-- [ ] 07-02-PLAN.md — Input Sanitization (DOMPurify + react-markdown)
+- [x] 07-01-PLAN.md — RLS Policies (Hybrid V1 public/V2 user-isolated)
+- [x] 07-02-PLAN.md — Input Sanitization (DOMPurify + react-markdown)
 - [ ] 07-03-PLAN.md — Rate Limiting (Upstash Redis, IP + Session)
 - [ ] 07-04-PLAN.md — Env Validation (t3-env, build-time checks)
 
@@ -137,7 +137,7 @@ Phases execute in numeric order: 4 -> 5 -> 6 -> 7 -> 8
 | 4. Auth Layer | 2/2 | Complete | 2026-04-12 |
 | 5. KB Tools | 1/1 | Complete | 2026-04-12 |
 | 6. Agent Integration | 1/1 | Complete | 2026-04-13 |
-| 7. Security Fundamentals | 0/4 | Planned | - |
+| 7. Security Fundamentals | 2/4 | In Progress | - |
 | 8. Security Headers & Session | 0/? | Planned | - |
 | 9. Security Observability | 0/? | Planned | - |
 | 10. Testing | 0/? | Planned | - |
