@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v3.1
 milestone_name: Hardening
-status: not-started
-stopped_at: Ready for Phase 7
-last_updated: "2026-04-13T18:00:00.000Z"
-last_activity: 2026-04-13 -- v3.1 roadmap added
+status: executing
+stopped_at: Plan 07-01 complete, awaiting RLS migration
+last_updated: "2026-04-13T07:45:00.000Z"
+last_activity: 2026-04-13 -- Plan 07-01 RLS Policies complete
 progress:
   total_phases: 2
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 4
+  completed_plans: 1
+  percent: 25
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-04-12)
 
 ## Current Position
 
-Phase: 7 of 8 (Security Hardening) — NOT STARTED
-Plan: 0 of ?
-Status: Ready for `/gsd-plan-phase 7`
-Last activity: 2026-04-13 -- v3.1 roadmap added
+Phase: 7 of 8 (Security Hardening) — EXECUTING
+Plan: 1 of 4 (07-01 RLS Policies COMPLETE)
+Status: Awaiting manual RLS migration in Supabase Dashboard
+Last activity: 2026-04-13 -- Plan 07-01 complete
 
-Progress: [----------] 0%
+Progress: [##--------] 25%
 
 ## Performance Metrics
 
@@ -85,7 +85,7 @@ Recent decisions affecting current work:
 
 ### Known Issues (from v2.0)
 
-- RLS Chat-Policies offen
+- ~~RLS Chat-Policies offen~~ -> 07-01 DONE (awaiting migration)
 - Keine Input-Validation/XSS-Schutz
 - Kein Rate-Limiting
 - Keine Tests
