@@ -62,8 +62,7 @@ export async function POST(req: Request) {
     }
 
     // Sanitize user input before storage (per D-07, D-10)
-    // TEMP: bypass sanitize to debug Vercel 500
-    const sanitizedMessage = message // sanitizeUserInput(message)
+    const sanitizedMessage = sanitizeUserInput(message)
 
     // User-Message persistieren
     await supabase.from('chat_messages').insert({

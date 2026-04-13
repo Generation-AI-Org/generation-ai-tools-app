@@ -1,24 +1,20 @@
 // lib/sanitize.ts
-// Server-side HTML sanitization using isomorphic-dompurify
-// Works in both browser and Node.js without jsdom dependency
+// Simple HTML escaping for XSS prevention
+// No external dependencies - works everywhere
 // Source: CONTEXT.md D-07, D-10
 
-import DOMPurify from 'isomorphic-dompurify'
-
 /**
- * Sanitize user input before storing in database.
- * Removes XSS vectors while preserving safe formatting.
+ * Escape HTML special characters to prevent XSS.
+ * For chat messages, we don't need to allow any HTML - just escape everything.
  *
  * @param input - Raw user input string
- * @returns Sanitized string safe for storage
+ * @returns HTML-escaped string safe for storage and display
  */
 export function sanitizeUserInput(input: string): string {
-  return DOMPurify.sanitize(input, {
-    // Allow basic text formatting tags that might come from copy-paste
-    ALLOWED_TAGS: ['b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li', 'code', 'pre'],
-    // Only allow href and title on links
-    ALLOWED_ATTR: ['href', 'title'],
-    // Disallow data-* attributes (potential XSS vector)
-    ALLOW_DATA_ATTR: false,
-  })
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
 }
