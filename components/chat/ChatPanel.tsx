@@ -119,7 +119,7 @@ export default function ChatPanel({ onHighlight, mode }: ChatPanelProps) {
         <div className="w-9 h-9 rounded-xl bg-[var(--accent)]/15 flex items-center justify-center">
           <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] shadow-[0_0_8px_var(--accent-glow)]" />
         </div>
-        <div>
+        <div className="flex-1">
           <div className="flex items-center gap-2">
             <p className="text-text text-sm font-semibold leading-tight">GenAI Assistent</p>
             {mode === 'member' && (
@@ -130,6 +130,26 @@ export default function ChatPanel({ onHighlight, mode }: ChatPanelProps) {
           </div>
           <p className="text-text-muted text-xs">Findet die richtigen Tools für dich</p>
         </div>
+        {/* Login/Logout Button */}
+        {mode === 'public' ? (
+          <a
+            href="/login"
+            className="px-4 py-2 rounded-full text-sm font-medium bg-[var(--accent)] text-bg shadow-[0_0_12px_var(--accent-glow)] hover:opacity-90 transition-all"
+          >
+            Anmelden
+          </a>
+        ) : (
+          <button
+            onClick={async () => {
+              const { supabase } = await import('@/lib/supabase')
+              await supabase.auth.signOut()
+              window.location.reload()
+            }}
+            className="px-4 py-2 rounded-full text-sm font-medium bg-[var(--border)] text-text-muted hover:bg-[var(--accent)]/10 hover:text-text transition-all"
+          >
+            Abmelden
+          </button>
+        )}
       </div>
 
       {/* Messages or Welcome */}

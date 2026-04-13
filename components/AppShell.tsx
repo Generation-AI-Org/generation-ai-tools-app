@@ -154,6 +154,7 @@ export default function AppShell({ items, mode }: AppShellProps) {
             </svg>
           )}
         </button>
+
       </header>
 
       {/* Search Overlay */}
