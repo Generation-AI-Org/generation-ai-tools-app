@@ -16,6 +16,9 @@ export async function getPublishedItems(): Promise<ContentItemMeta[]> {
   return (data ?? []) as ContentItemMeta[]
 }
 
+// Featured tools appear first in this order
+const FEATURED_TOOLS = ['chatgpt', 'claude', 'lovable', 'cursor', 'perplexity']
+
 export async function getPublishedTools(): Promise<ContentItemMeta[]> {
   const supabase = createServerClient()
   const { data, error } = await supabase
@@ -29,7 +32,19 @@ export async function getPublishedTools(): Promise<ContentItemMeta[]> {
     console.error('getPublishedTools error:', error.message)
     return []
   }
-  return (data ?? []) as ContentItemMeta[]
+
+  const items = (data ?? []) as ContentItemMeta[]
+
+  // Sort: featured tools first (in order), then rest by created_at
+  return items.sort((a, b) => {
+    const aIndex = FEATURED_TOOLS.indexOf(a.slug)
+    const bIndex = FEATURED_TOOLS.indexOf(b.slug)
+
+    if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex
+    if (aIndex !== -1) return -1
+    if (bIndex !== -1) return 1
+    return 0 // keep original order for non-featured
+  })
 }
 
 export async function getFullContent(): Promise<ContentItem[]> {
